@@ -39,6 +39,36 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.100.150.70"
+  - hostname: "k8s-02"
+    ipAddress: "10.100.150.61"
+    installDisk: "/dev/nvme0n1""
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "98:e7:f4:bd:bf:d8"
+        dhcp: false
+        addresses:
+          - "10.100.150.61/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.100.150.1"
+        mtu: 1500
+  - hostname: "k8s-03"
+    ipAddress: "10.100.150.62"
+    installDisk: "/dev/nvme0n1"
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "10:e7:c6:0c:78:56"
+        dhcp: false
+        addresses:
+          - "10.100.150.62/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.100.150.1"
+        mtu: 1500
 
 # Global patches
 patches:
