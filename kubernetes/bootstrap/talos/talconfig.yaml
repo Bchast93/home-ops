@@ -14,6 +14,7 @@ clusterSvcNets:
 additionalApiServerCertSans: &sans
   - "10.100.150.70"
   - 127.0.0.1 # KubePrism
+  - "10.100.150.60"
 additionalMachineCertSans: *sans
 
 # Disable built-in Flannel to use Cilium
@@ -46,14 +47,7 @@ patches:
     machine:
       network:
         nameservers:
-          - 8.8.8.8
-  - # Configure NTP
-    |-
-    machine:
-      time:
-        disabled: false
-        servers:
-          - time.cloudflare.com
+          - 10.100.150.5
   - "@./patches/global/cluster-discovery.yaml"
   - "@./patches/global/containerd.yaml"
   - "@./patches/global/disable-search-domain.yaml"
