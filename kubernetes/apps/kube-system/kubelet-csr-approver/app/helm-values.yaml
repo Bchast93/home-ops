@@ -1,0 +1,3 @@
+---
+providerRegex: ^(tal01)$
+bypassDnsResolution: true
