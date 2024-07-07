@@ -6,13 +6,13 @@ talosVersion: v1.7.5
 kubernetesVersion: v1.30.2
 
 clusterName: "cluster01"
-endpoint: https://10.100.150.70:6443
+endpoint: https://:6443
 clusterPodNets:
   - "10.69.0.0/16"
 clusterSvcNets:
   - "10.96.0.0/16"
 additionalApiServerCertSans: &sans
-  - "10.100.150.70"
+  - ""
   - 127.0.0.1 # KubePrism
 additionalMachineCertSans: *sans
 
@@ -21,8 +21,8 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: "tal01"
-    ipAddress: "10.100.150.212"
+  - hostname: "k8s-01"
+    ipAddress: "10.100.150.60"
     installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
     controlPlane: true
@@ -31,13 +31,13 @@ nodes:
           hardwareAddr: "10:62:e5:19:9d:d9"
         dhcp: false
         addresses:
-          - "10.100.150.212/24"
+          - "10.100.150.60/24"
         routes:
           - network: 0.0.0.0/0
             gateway: "10.100.150.1"
         mtu: 1500
         vip:
-          ip: "10.100.150.70"
+          ip: ""
 
 # Global patches
 patches:
@@ -46,7 +46,7 @@ patches:
     machine:
       network:
         nameservers:
-          - 10.100.150.5
+          - 1.1.1.1
   - # Configure NTP
     |-
     machine:
