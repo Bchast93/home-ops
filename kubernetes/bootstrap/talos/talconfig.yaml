@@ -22,14 +22,19 @@ cniConfig:
 
 nodes:
   - hostname: "tal01"
-    ipAddress: ""
+    ipAddress: "10.100.150.212"
     installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "10:62:e5:19:9d:d9"
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.100.150.212/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.100.150.1"
         mtu: 1500
         vip:
           ip: "10.100.150.70"
