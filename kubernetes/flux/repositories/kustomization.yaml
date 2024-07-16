@@ -5,4 +5,3 @@ resources:
   - ./git
   - ./helm
   - ./oci
-  - ./weave-gitops.yaml
