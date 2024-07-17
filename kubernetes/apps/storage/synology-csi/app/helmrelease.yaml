@@ -11,7 +11,6 @@ spec:
     spec:
       # renovate: registryUrl=https://zebernst.github.io/synology-csi-talos
       chart: synology-csi
-      version: 0.9.4
       sourceRef:
         kind: HelmRepository
         name: synology-csi

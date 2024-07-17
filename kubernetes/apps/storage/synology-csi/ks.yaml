@@ -7,6 +7,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
+  dependsOn:
+    - name: external-secrets-stores
   path: "./kubernetes/apps/storage/synology-csi/app"
   prune: true
   sourceRef:
@@ -15,7 +17,7 @@ spec:
   wait: true
   postBuild:
     substituteFrom: []
-  decryption:
-    provider: sops
+  # decryption:
+  #   provider: sops
   # dependsOn:
   #   - name: cluster-apps-snapshot-controller
