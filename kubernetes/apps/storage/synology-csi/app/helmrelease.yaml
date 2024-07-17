@@ -21,10 +21,10 @@ spec:
       create: false
       name: synology-csi-secret
     images:
-      # attacher:
-      #   image: registry.k8s.io/sig-storage/csi-attacher
-      #   pullPolicy: IfNotPresent
-      #   tag: v4.2.0
+      attacher:
+        image: registry.k8s.io/sig-storage/csi-attacher
+        pullPolicy: IfNotPresent
+        tag: v4.2.0
       # nodeDriverRegistrar:
       #   image: registry.k8s.io/sig-storage/csi-node-driver-registrar
       #   pullPolicy: IfNotPresent
