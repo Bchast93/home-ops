@@ -6,6 +6,7 @@ metadata:
   namespace: storage
 spec:
   interval: 30m
+  timeout: 60m
   chart:
     spec:
       # renovate: registryUrl=https://zebernst.github.io/synology-csi-talos
