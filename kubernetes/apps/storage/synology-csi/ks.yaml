@@ -5,14 +5,13 @@ metadata:
   name: &app cluster-apps-synology-csi
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/storage/synology-csi/app
   targetNamespace: storage
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-    dependsOn:
-      - name: external-secrets-stores
-    path: ./kubernetes/apps/storage/synology-csi/app
+  dependsOn:
+    - name: external-secrets-stores
+  path: ./kubernetes/apps/storage/synology-csi/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -20,4 +19,4 @@ spec:
   wait: false
   interval: 30m
   retryInterval: 1m
-  timeout: 15m
+  timeout: 5m
