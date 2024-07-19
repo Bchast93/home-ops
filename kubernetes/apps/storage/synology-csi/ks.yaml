@@ -5,7 +5,7 @@ metadata:
   name: &app cluster-apps-synology-csi
   namespace: flux-system
 spec:
-  path: ./cluster/apps/storage/synology-csi/app
+  path: ./kubernetes/apps/storage/synology-csi/app
   targetNamespace: storage
   commonMetadata:
     labels:
