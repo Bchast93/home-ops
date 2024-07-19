@@ -15,6 +15,7 @@ spec:
         name: synology-csi
         namespace: flux-system
       interval: 30m
+      timeout: 55m
   values:
     clientInfoSecret:
       create: false
