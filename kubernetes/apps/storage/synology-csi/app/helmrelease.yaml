@@ -64,3 +64,5 @@ spec:
         deletionPolicy: Delete
       synology-iscsi-retain:
         deletionPolicy: Retain
+    podAnnotations:
+      secret.reloader.stakater.com/reload: cluster-user-auth
