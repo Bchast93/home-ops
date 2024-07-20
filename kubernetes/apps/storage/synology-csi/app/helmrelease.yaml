@@ -15,7 +15,6 @@ spec:
         name: synology-csi
         namespace: flux-system
       interval: 30m
-      timeout: 55m
   values:
     clientInfoSecret:
       create: false
@@ -66,4 +65,4 @@ spec:
       synology-iscsi-retain:
         deletionPolicy: Retain
     podAnnotations:
-      secret.reloader.stakater.com/reload: cluster-user-auth
+      secret.reloader.stakater.com/reload: synology-csi-secret
