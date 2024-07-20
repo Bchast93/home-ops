@@ -18,7 +18,7 @@ spec:
   values:
     clientInfoSecret:
       create: false
-      name: synology-csi-secret
+      name: client-info-secret
     images:
       attacher:
         image: registry.k8s.io/sig-storage/csi-attacher
@@ -64,5 +64,5 @@ spec:
         deletionPolicy: Delete
       synology-iscsi-retain:
         deletionPolicy: Retain
-    podAnnotations:
-      secret.reloader.stakater.com/reload: synology-csi-secret
+#    podAnnotations:
+#      secret.reloader.stakater.com/reload: synology-csi-secret
