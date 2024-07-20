@@ -64,5 +64,13 @@ spec:
         deletionPolicy: Delete
       synology-iscsi-retain:
         deletionPolicy: Retain
-#    podAnnotations:
-#      secret.reloader.stakater.com/reload: synology-csi-secret
+    podAnnotations:
+      secret.reloader.stakater.com/reload: synology-csi-secret
+    persistence:
+      config:
+        type: secret
+        name: *app
+        globalMounts:
+          - path: /config/configuration.yaml
+            subPath: client-info.yaml
+            readOnly: true
