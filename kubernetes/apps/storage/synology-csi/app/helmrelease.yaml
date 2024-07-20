@@ -18,7 +18,7 @@ spec:
   values:
     clientInfoSecret:
       create: false
-      name: client-info-secret
+      name: synology-csi-secret
     images:
       attacher:
         image: registry.k8s.io/sig-storage/csi-attacher
@@ -71,6 +71,6 @@ spec:
         type: secret
         name: *app
         globalMounts:
-          - path: /config/configuration.yaml
+          - path: /config/client-info.yaml
             subPath: client-info.yaml
             readOnly: true
