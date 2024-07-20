@@ -69,7 +69,7 @@ spec:
     persistence:
       config:
         type: secret
-        name: *app
+        name: #*app
         globalMounts:
           - path: /config/client-info.yaml
             subPath: client-info.yaml
