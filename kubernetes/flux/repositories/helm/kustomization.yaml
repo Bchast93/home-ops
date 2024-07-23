@@ -18,3 +18,4 @@ resources:
   - ./weave-gitops.yaml
   - ./external-secrets.yaml
   - ./synology-csi.yaml
+  - ./cloudnative-pg.yaml
