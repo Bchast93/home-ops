@@ -19,3 +19,6 @@ resources:
   - ./external-secrets.yaml
   - ./synology-csi.yaml
   - ./cloudnative-pg.yaml
+  - ./longhorn.yaml
+  - ./bitnami.yaml
+  - ./backube.yaml
