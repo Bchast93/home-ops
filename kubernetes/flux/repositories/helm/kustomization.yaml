@@ -22,3 +22,4 @@ resources:
   - ./longhorn.yaml
   - ./bitnami.yaml
   - ./backube.yaml
+  - ./piraeus.yaml
