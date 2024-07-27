@@ -19,3 +19,4 @@ resources:
   - ./external-secrets.yaml
   - ./synology-csi.yaml
   - ./cloudnative-pg.yaml
+  - ./csi-driver-smb.yaml

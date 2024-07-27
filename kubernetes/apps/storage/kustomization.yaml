@@ -6,3 +6,5 @@ resources:
   - ./namespace.yaml
 #  - ./snapshot-controller/ks.yaml
 #  - ./synology-csi/ks.yaml
+  - ./ks.yaml
+  - ./csi-driver-smb/ks.yaml
