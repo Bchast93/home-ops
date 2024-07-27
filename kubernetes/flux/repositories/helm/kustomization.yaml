@@ -23,3 +23,4 @@ resources:
   - ./bitnami.yaml
   - ./backube.yaml
   - ./piraeus.yaml
+  - ./csi-driver-smb.yaml
