@@ -1,11 +1,6 @@
-# iscsi-modules.yaml
-apiVersion: talos.dev/v1alpha1
-kind: MachineConfig
-metadata:
-  name: node-iscsi-config
-spec:
-  install:
-    extraKernelModules:
-      - iscsi_tcp
-      - libiscsi
-      - scsi_transport_iscsi
+machine:
+  kernel:
+    modules:
+      - name: iscsi_tcp
+      - name: libiscsi
+      - name: scsi_transport_iscsi
