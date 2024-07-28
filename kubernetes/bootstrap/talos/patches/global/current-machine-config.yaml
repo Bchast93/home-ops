@@ -23,7 +23,7 @@ spec:
         - 127.0.0.1
         - 10.100.150.60
       kubelet:
-        image: ghcr.io/siderolabs/kubelet:v1.30.2
+        image: ghcr.io/siderolabs/kubelet:v1.30.3
         extraArgs:
           rotate-server-certificates: "true"
         extraMounts:
