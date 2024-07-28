@@ -22,3 +22,4 @@ resources:
   - ./csi-driver-smb.yaml
   - ./backube.yaml
   - ./longhorn.yaml
+  - ./piraeus.yaml

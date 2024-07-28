@@ -1,0 +1,6 @@
+machine:
+  install:
+    extraKernelModules:
+      - iscsi_tcp
+      - libiscsi
+      - scsi_transport_iscsi
