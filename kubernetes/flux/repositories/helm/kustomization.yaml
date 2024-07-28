@@ -20,3 +20,4 @@ resources:
   - ./synology-csi.yaml
   - ./cloudnative-pg.yaml
   - ./csi-driver-smb.yaml
+  - ./backube.yaml
