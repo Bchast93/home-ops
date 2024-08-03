@@ -5,5 +5,6 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./rbac.yaml
+  - ./clusterrolebinding.yaml
+#  - ./rbac.yaml
   # - ./secret.sops.yaml
