@@ -4,6 +4,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: storage
 resources:
-#  - ./externalsecret.yaml
-#  - ./helmrelease.yaml
-#  - ./secret.sops.yaml
+ - ./externalsecret.yaml
+ - ./helmrelease.yaml
+configMapGenerator:
+  - name: synology-csi
+    files:
+      - client-info.yaml=./resources/client-info.yaml
+generatorOptions:
+  disableNameSuffixHash: true
