@@ -9,6 +9,6 @@ resources:
 configMapGenerator:
   - name: client-info-secret
     files:
-      - client-info.yaml=./resources/client-info.yaml
+      - client-info.yml=./resources/client-info.yml
 generatorOptions:
   disableNameSuffixHash: true
