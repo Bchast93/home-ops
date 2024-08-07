@@ -74,7 +74,7 @@ spec:
         ports:
           http:
             port: *port
-          ldaps:
+          ldap:
             enabled: true
             port: *ldapPort
     ingress:
