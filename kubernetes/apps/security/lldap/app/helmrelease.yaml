@@ -59,7 +59,7 @@ spec:
               TZ: ${TIMEZONE}
               LLDAP_HTTP_PORT: &port 8080
               LLDAP_HTTP_URL: https://lldap.${SECRET_DOMAIN}
-              LLDAP_LDAP_PORT: &ldapPort 636
+              LLDAPS_LDAP_PORT: &ldapsPort 636
               LLDAP_LDAP_BASE_DN: dc=chast,dc=net
             envFrom: *envFrom
             resources:
@@ -74,9 +74,9 @@ spec:
         ports:
           http:
             port: *port
-          ldap:
+          ldaps:
             enabled: true
-            port: *ldapPort
+            port: *ldapsPort
     ingress:
       app:
         enabled: true
