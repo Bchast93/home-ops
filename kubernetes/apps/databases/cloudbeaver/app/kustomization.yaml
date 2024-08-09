@@ -6,7 +6,7 @@ resources:
   - ../../../../templates/volsync
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  # - ../../../../templates/gatus/guarded
+  - ../../../../templates/gatus/guarded
 configMapGenerator:
   - name: cloudbeaver
     files:
