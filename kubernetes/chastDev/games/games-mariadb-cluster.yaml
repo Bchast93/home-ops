@@ -1,0 +1,63 @@
+---
+# yaml-language-server: $schema=https://kube-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app games-mariadb-cluster
+  annotations:
+    fluxcd.io/helm-release-defaults: disabled
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+
+  dependsOn:
+    - name: external-secrets-stores
+      namespace: external-secrets
+    # Replace this with your MariaDB operator / Helm Kustomization name if you have one
+    - name: mariadb-operator
+      namespace: database
+    - name: rook-ceph-cluster
+      namespace: storage
+
+  # Health checks: adjust apiVersion/kind/name/namespace to match your MariaDB CR
+  healthChecks:
+    - apiVersion: k8s.mariadb.com/v1alpha1
+      kind: MariaDB
+      name: mariadb-cluster
+      namespace: database
+
+  # ExternalSecret readiness expression can stay the same if you still use ExternalSecrets
+  healthCheckExprs:
+    - apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
+      current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
+
+  interval: 1h
+
+  # Point this at your MariaDB manifests (CR / HelmRelease / whatever you use)
+  path: ./kubernetes/base/database/mariadb-cluster
+
+  #
+  # If you are adding a new cluster to a namespace make sure to update authelia configuration
+  # identity_providers.oidc.clients any DB-admin client redirect_uris to include the new authorize endpoint
+  # e.g. "https://<NAMESPACE>-dbadmin.${SECRET_DOMAIN}/oauth2/authorize"
+  #
+
+  # Postgres-specific patch removed (no PostgresCluster / dataSource here)
+  patches: []
+
+  # PostgresCluster-specific USERS substitution removed.
+  # If you want something similar for MariaDB (e.g. DB names or app users),
+  # you can add your own postBuild.substitute block here and use it in your manifests.
+  postBuild:
+    substitute:
+      DB_NAMES: '["pterodactyl"]'
+
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true

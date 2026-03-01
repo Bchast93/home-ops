@@ -1,0 +1,17 @@
+- Communicate:
+    - Discord:
+        - icon: discord.png
+          href: "https://discord.com/app"
+    - Gmail:
+        - icon: gmail.png
+          href: "https://mail.google.com/mail/u/0/#inbox"
+- Git:
+    - kubesearch:
+        - icon: kubernetes-dashboard.png
+          href: "https://kubesearch.dev/"
+    - talos-cluster:
+        - icon: github.png
+          href: "https://github.com/bchast93/home-ops"
+    - cluster-template:
+        - icon: github.png
+          href: "https://github.com/onedr0p/cluster-template"

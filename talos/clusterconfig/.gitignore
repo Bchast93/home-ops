@@ -1,0 +1,8 @@
+kubernetes-cntrlr01.yaml
+kubernetes-cntrlr02.yaml
+kubernetes-cntrlr03.yaml
+kubernetes-wrkr01.yaml
+kubernetes-wrkr02.yaml
+kubernetes-wrkr03.yaml
+kubernetes-wrkr04.yaml
+talosconfig

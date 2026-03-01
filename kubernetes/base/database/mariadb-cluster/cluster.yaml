@@ -1,0 +1,184 @@
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: ${NAMESPACE}
+spec:
+  # Rough equivalent of postgresVersion + Patroni config
+  image:
+    repository: mariadb
+    tag: "11.4.2" # pick whatever version you standardize on
+    pullPolicy: IfNotPresent
+
+  port: 3306
+
+  # Root password (create this Secret separately)
+  rootPasswordSecretKeyRef:
+    name: ${NAMESPACE}-mariadb
+    key: root-password
+
+  # Optional default DB/user – if your ${USERS} templating creates DBs,
+  # you can do that via Database/User/Grant CRs instead (see below).
+  # username: ${NAMESPACE}
+  # database: ${NAMESPACE}
+  # passwordSecretKeyRef:
+  #   name: ${NAMESPACE}-app
+  #   key: password
+
+  # Cluster size – equivalent to pgo `instances[0].replicas`
+  replicas: ${PGO_REPLICAS:-3}
+
+  # Asynchronous primary/replica topology
+  replication:
+    enabled: true
+    primary:
+      autoFailover: true
+      autoFailoverDelay: 0s
+
+  # Storage – mapping your PVC from Crunchy spec
+  storage:
+    size: 5Gi
+    storageClassName: local-path
+    # If you prefer full PVC template:
+    # volumeClaimTemplate:
+    #   storageClassName: local-path
+    #   accessModes:
+    #     - ReadWriteOnce
+    #   resources:
+    #     requests:
+    #       storage: 5Gi
+
+  # Spread pods across nodes (rough equivalent of topologySpreadConstraints)
+  affinity:
+    antiAffinityEnabled: true
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                  - ${NAMESPACE}
+          topologyKey: kubernetes.io/hostname
+
+  podDisruptionBudget:
+    maxUnavailable: 1
+
+  # Basic resource/connection tuning – mapping some of your Patroni/PG params
+  myCnf: |
+    [mariadb]
+    max_connections = 500
+    # tune buffer pool / log size to your workload
+    # innodb_buffer_pool_size = 1G
+    # innodb_log_file_size    = 512M
+
+  # Metrics (Prometheus via mysqld-exporter)
+  metrics:
+    enabled: true
+    # Depending on operator version you can also configure the exporter in detail, e.g.:
+    # exporter:
+    #   resources:
+    #     requests:
+    #       cpu: 10m
+    #       memory: 64Mi
+    #     limits:
+    #       memory: 512Mi
+
+  # Primary and replica services & connection secrets (handy for apps)
+  primaryService:
+    type: ClusterIP
+  primaryConnection:
+    secretName: ${NAMESPACE}-mariadb-primary-conn
+    secretTemplate:
+      key: dsn
+
+  secondaryService:
+    type: ClusterIP
+  secondaryConnection:
+    secretName: ${NAMESPACE}-mariadb-replica-conn
+    secretTemplate:
+      key: dsn
+
+  # TLS is enabled by default in newer versions;
+  # you can enforce it like this if desired:
+  # tls:
+  #   enabled: true
+  #   required: true
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: ${NAMESPACE}-app
+spec:
+  mariaDbRef:
+    name: ${NAMESPACE}
+  characterSet: utf8mb4
+  collate: utf8mb4_general_ci
+
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: ${NAMESPACE}-app
+spec:
+  mariaDbRef:
+    name: ${NAMESPACE}
+  passwordSecretKeyRef:
+    name: ${NAMESPACE}-app
+    key: password
+  maxUserConnections: 0 # unlimited, like many app roles
+
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: ${NAMESPACE}-app
+spec:
+  mariaDbRef:
+    name: ${NAMESPACE}
+  privileges:
+    - ALL PRIVILEGES
+  database: "${NAMESPACE}-app"
+  username: "${NAMESPACE}-app"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${NAMESPACE}-backup-s3
+type: Opaque
+stringData:
+  accessKeyId: "${QNAP_ACCESS_KEY_ID}"
+  secretAccessKey: "${QNAP_SECRET_ACCESS_KEY}"
+
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Backup
+metadata:
+  name: ${NAMESPACE}-mariadb-backup-full
+spec:
+  mariaDbRef:
+    name: ${NAMESPACE}
+
+  # Sunday full backup at 01:30 (like pgBackRest full)
+  schedule:
+    cron: "30 1 * * 0"
+    suspend: false
+
+  # Newer operator versions support retentionPolicy; older ones use maxRetention
+  retentionPolicy:
+    cleanupPolicy: Delete
+    daysToRetain: 30
+
+  storage:
+    s3:
+      bucket: "${VAULT_PREFIX}-mariadb"
+      endpoint: "${QNAP_HOSTNAME}:8010"
+      # region is optional for many S3-compatible storages
+      region: "us-east-1"
+      prefix: "/${NAMESPACE}"
+      accessKeyIdSecretKeyRef:
+        name: ${NAMESPACE}-backup-s3
+        key: accessKeyId
+      secretAccessKeySecretKeyRef:
+        name: ${NAMESPACE}-backup-s3
+        key: secretAccessKey

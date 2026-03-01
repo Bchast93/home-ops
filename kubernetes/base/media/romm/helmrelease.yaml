@@ -1,0 +1,116 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app romm
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      romm:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/rommapp/romm
+              tag: 4.3.2
+            env:
+              TZ: "${TIMEZONE}"
+              DB_HOST: "{{ .Release.Namespace }}-pgbouncer.{{ .Release.Namespace }}.svc"
+              DB_NAME: *app
+              DB_PASSWD:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Namespace }}-pguser-{{ .Release.Name }}"
+                    key: password
+              DB_PORT: 5432
+              DB_USER: *app
+              DISABLE_DOWNLOAD_ENDPOINT_AUTH: true
+              DISABLE_USERPASS_LOGIN: false # only set to true after first run and admin has been created
+              ENABLE_SCHEDULED_RESCAN: true
+              SCHEDULED_RESCAN_CRON: "0 3 * * *"
+              ROMM_DB_DRIVER: postgresql
+              REDIS_HOST: "${NAMESPACE}-dragonfly"
+              REDIS_PORT: 6379
+              REDIS_DB: 11
+              OIDC_ENABLED: true
+              OIDC_PROVIDER: authelia
+              OIDC_REDIRECT_URI: https://romm.${SECRET_DOMAIN}/api/oauth/openid
+              OIDC_SERVER_APPLICATION_URL: https://auth.${SECRET_DOMAIN}
+            envFrom:
+              - secretRef:
+                  name: *app
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 4Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 100
+        fsGroup: 100
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: *app
+        annotations:
+          gatus.home-operations.com/endpoint: |
+            group: internal
+            alerts:
+              - type: pushover
+        ports:
+          http:
+            port: &port 8080
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+    persistence:
+      data:
+        existingClaim: *app
+        advancedMounts:
+          romm:
+            app:
+              - subPath: "resources"
+                path: "/romm/resources"
+              - subPath: "assets"
+                path: "/romm/assets"
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /romm/config
+      nginx-conf:
+        type: emptyDir
+        globalMounts:
+          - path: /etc/nginx/conf.d
+      tmp:
+        type: emptyDir
+      games:
+        existingClaim: cifs-games
+        globalMounts:
+          - path: /romm/library
+            subPath: romm

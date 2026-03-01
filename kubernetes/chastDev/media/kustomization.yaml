@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization.json
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: media
+components:
+  - ../../clusters/chastDev
+  - ../../components/common
+replacements:
+  - path: ../../components/replacements/ks.yaml
+resources:
+  - ./media-pgo-cluster.yaml
+  - ./media-cifs-pvcs.yaml
+  - ./plex.yaml
+  # - ./overseerr.yaml
+  - ./seerr.yaml
+  - ./romm.yaml
+  - ./tautulli.yaml
+  - ./wizarr.yaml
