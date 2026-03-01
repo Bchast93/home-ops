@@ -9,6 +9,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../components/envoy-gateway-oidc
+    - ../../../components/theme-park
     - ../../../components/volsync
   dependsOn:
     - name: downloads-cifs-pvcs

@@ -9,6 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../components/theme-park
     - ../../../components/volsync
   interval: 1h
   path: ./kubernetes/base/downloads/bazarr
