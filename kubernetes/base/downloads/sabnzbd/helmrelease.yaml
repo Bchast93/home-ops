@@ -96,15 +96,24 @@ spec:
       config:
         existingClaim: *app
       tmp:
-        existingClaim: sabnzbd-tmp
+        type: emptyDir
       incomplete:
-        existingClaim: sabnzbd-incomplete
-      downloads:
-        existingClaim: cifs-downloads
         globalMounts:
-          - path: /downloads
-            subPath: sabnzbd
+          - path: /incomplete
+            subPath: *app
+        path: /downloads/${VAULT_PREFIX}/incomplete
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
+      downloads:
+        globalMounts:
+          - path: /downloads/complete
+            subPath: *app
+        path: /downloads/${VAULT_PREFIX}/complete
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
       misc:
-        existingClaim: cifs-misc
         globalMounts:
           - path: /media/misc
+        path: /misc
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
