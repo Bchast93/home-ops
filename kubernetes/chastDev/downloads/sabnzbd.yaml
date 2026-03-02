@@ -13,7 +13,6 @@ spec:
     - ../../../components/theme-park
     - ../../../components/volsync
   dependsOn:
-    - name: downloads-cifs-pvcs
     - name: volsync
       namespace: storage
   interval: 30m
