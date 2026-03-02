@@ -18,4 +18,4 @@ resources:
   - ../../common/observability/node-exporter.yaml
   - ../../common/observability/silence-operator.yaml
   - ../../common/observability/smartctl-exporter.yaml
-  - ./unpoller.yaml
+  - ../../common/observability/unpoller.yaml
