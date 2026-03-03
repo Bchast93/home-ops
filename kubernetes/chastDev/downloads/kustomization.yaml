@@ -9,13 +9,13 @@ components:
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
-  - ./downloads-cifs-pvcs.yaml
-  - ./downloads-pgo-cluster.yaml
-  - ./flaresolverr.yaml
-  - ./flood.yaml
-  - ./bazarr.yaml
-  - ./prowlarr.yaml
-  - ./radarr.yaml
+  # - ./downloads-cifs-pvcs.yaml
+  # - ./downloads-pgo-cluster.yaml
+  # - ./flaresolverr.yaml
+  # - ./flood.yaml
+  # # - ./bazarr.yaml
+  # - ./prowlarr.yaml
+  # - ./radarr.yaml
   - ./recyclarr.yaml
-  - ./sabnzbd.yaml
-  - ./sonarr.yaml
+  # - ./sabnzbd.yaml
+  # - ./sonarr.yaml
