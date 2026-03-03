@@ -139,21 +139,29 @@ spec:
             transmission:
               - path: /config
                 subPath: transmission-config
-      flood-incomplete:
-        existingClaim: flood-incomplete
-        advancedMounts:
-          flood:
-            app:
-              - path: incomplete
-            transmission:
-              - path: incomplete
       downloads:
-        existingClaim: cifs-downloads
         advancedMounts:
           flood:
             app:
               - path: /downloads
-                subPath: flood
+                subPath: *app
             transmission:
               - path: /downloads
-                subPath: flood
+                subPath: *app
+        path: /downloads/${VAULT_PREFIX}/complete
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
+      incomplete:
+        advancedMounts:
+          flood:
+            app:
+              - path: /incomplete
+                subPath: *app
+            transmission:
+              - path: /incomplete
+                subPath: *app
+        path: /downloads/${VAULT_PREFIX}/incomplete
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
+      tmp:
+        type: emptyDir

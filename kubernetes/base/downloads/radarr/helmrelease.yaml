@@ -93,20 +93,22 @@ spec:
     persistence:
       config:
         existingClaim: *app
-      tmp:
-        type: emptyDir
-      media:
-        existingClaim: cifs-movies
-        globalMounts:
-          - path: /media/movies
       downloads:
-        existingClaim: cifs-downloads
         advancedMounts:
           radarr:
             app:
-              - path: /downloads/downloaded_movies
-                readOnly: false
+              - path: /downloads/complete/downloaded_movies
                 subPath: sabnzbd/downloaded_movies
               - path: /downloads/movies-radarr
-                readOnly: false
                 subPath: flood/movies-radarr
+        path: /downloads/${VAULT_PREFIX}/complete
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
+      movies:
+        globalMounts:
+          - path: /media/movies
+        path: /movies
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
+      tmp:
+        type: emptyDir

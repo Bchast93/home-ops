@@ -93,20 +93,22 @@ spec:
     persistence:
       config:
         existingClaim: *app
-      tmp:
-        type: emptyDir
-      media:
-        existingClaim: cifs-tv
-        globalMounts:
-          - path: /media/tv
       downloads:
-        existingClaim: cifs-downloads
         advancedMounts:
           sonarr:
             app:
-              - path: /downloads/downloaded_tv
-                readOnly: false
+              - path: /downloads/complete/downloaded_tv
                 subPath: sabnzbd/downloaded_tv
               - path: /downloads/tv-sonarr
-                readOnly: false
                 subPath: flood/tv-sonarr
+        path: /downloads/${VAULT_PREFIX}/complete
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
+      tv:
+        globalMounts:
+          - path: /media/tv
+        path: /tv
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
+      tmp:
+        type: emptyDir
