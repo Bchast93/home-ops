@@ -101,19 +101,19 @@ spec:
         globalMounts:
           - path: /incomplete
             subPath: *app
-        path: /downloads/${VAULT_PREFIX}/incomplete
+        path: /volume1/downloads/${VAULT_PREFIX}/incomplete
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
       downloads:
         globalMounts:
           - path: /downloads/complete
             subPath: *app
-        path: /downloads/${VAULT_PREFIX}/complete
+        path: /volume1/downloads/${VAULT_PREFIX}/complete
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
       misc:
         globalMounts:
           - path: /media/misc
-        path: /misc
+        path: /volume1/misc
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
