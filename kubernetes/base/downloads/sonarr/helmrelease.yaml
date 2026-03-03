@@ -101,13 +101,13 @@ spec:
                 subPath: sabnzbd/downloaded_tv
               - path: /downloads/tv-sonarr
                 subPath: flood/tv-sonarr
-        path: /downloads/${VAULT_PREFIX}/complete
+        path: /volume1/downloads/${VAULT_PREFIX}/complete
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
       tv:
         globalMounts:
           - path: /media/tv
-        path: /tv
+        path: /volume1/tv
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
       tmp:

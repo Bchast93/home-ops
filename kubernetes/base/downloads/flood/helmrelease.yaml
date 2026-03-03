@@ -148,7 +148,7 @@ spec:
             transmission:
               - path: /downloads
                 subPath: *app
-        path: /downloads/${VAULT_PREFIX}/complete
+        path: /volume1/downloads/${VAULT_PREFIX}/complete
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
       incomplete:
@@ -160,7 +160,7 @@ spec:
             transmission:
               - path: /incomplete
                 subPath: *app
-        path: /downloads/${VAULT_PREFIX}/incomplete
+        path: /volume1/downloads/${VAULT_PREFIX}/incomplete
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
       tmp:

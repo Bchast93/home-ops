@@ -101,13 +101,13 @@ spec:
                 subPath: sabnzbd/downloaded_movies
               - path: /downloads/movies-radarr
                 subPath: flood/movies-radarr
-        path: /downloads/${VAULT_PREFIX}/complete
+        path: /volume1/downloads/${VAULT_PREFIX}/complete
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
       movies:
         globalMounts:
           - path: /media/movies
-        path: /movies
+        path: /volume1/movies
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
       tmp:
