@@ -177,7 +177,7 @@ spec:
       videos:
         globalMounts:
           - path: /media/videos
-        path: /videos
+        path: /volume1/videos
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
       tmp:
