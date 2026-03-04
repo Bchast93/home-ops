@@ -58,6 +58,7 @@ spec:
             group: internal
             alerts:
               - type: pushover
+        controller: *app
         ports:
           http:
             port: *port

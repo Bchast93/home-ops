@@ -13,6 +13,9 @@ spec:
     - ../../../components/volsync
   interval: 1h
   path: ./kubernetes/base/downloads/bazarr
+  dependsOn:
+    - name: volsync
+      namespace: storage
   postBuild:
     substitute:
       APP: *app
