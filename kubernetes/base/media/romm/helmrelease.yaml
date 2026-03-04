@@ -110,7 +110,9 @@ spec:
       tmp:
         type: emptyDir
       games:
-        existingClaim: cifs-games
         globalMounts:
           - path: /romm/library
             subPath: romm
+        path: /volume1/games
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs

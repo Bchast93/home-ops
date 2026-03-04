@@ -10,9 +10,7 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - ./media-pgo-cluster.yaml
-  - ./media-cifs-pvcs.yaml
   - ./plex.yaml
-  # - ./overseerr.yaml
   - ./seerr.yaml
   - ./romm.yaml
   - ./tautulli.yaml

@@ -9,6 +9,5 @@ components:
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
-  - ./foundryvtt-cifs-pvcs.yaml
   - ./drakkenheim.yaml
   - ./dnd-tools.yaml
