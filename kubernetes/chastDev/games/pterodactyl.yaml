@@ -8,7 +8,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../components/dragonfly-cluster
-    - ../../../components/pgo-db-init
+    - ../../../components/mariadb-db-init
     - ../../../components/volsync
   dependsOn:
     - name: external-secrets-stores
