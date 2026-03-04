@@ -11,3 +11,4 @@ replacements:
 resources:
   # - ./games-mariadb-cluster.yaml
   # - ./pterodactyl.yaml
+  - ./ut2k4.yaml

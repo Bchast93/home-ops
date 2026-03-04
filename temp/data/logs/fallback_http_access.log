@@ -1,0 +1,3 @@
+[05/Mar/2026:07:53:02 +1000] 200 - GET http 10.100.150.55 "/" [Client 10.100.100.118] [Length 568] [Gzip 1.86] "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0" "-"
+[05/Mar/2026:07:54:46 +1000] 404 - GET http 10.100.150.55 "/admin" [Client 10.100.100.118] [Length 122] [Gzip 1.35] "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0" "-"
+[05/Mar/2026:07:54:50 +1000] 404 - GET http 10.100.150.55 "/login" [Client 10.100.100.118] [Length 122] [Gzip 1.35] "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0" "-"
