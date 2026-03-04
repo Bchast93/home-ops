@@ -31,6 +31,8 @@ spec:
       app:
         controller: *app
         type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "ut2k4.${SECRET_DOMAIN}"
         ports:
           game:
             protocol: UDP
@@ -38,3 +40,14 @@ spec:
           web:
             protocol: TCP
             port: 8888
+    route:
+      app:
+        hostnames:
+          - "ut2k4admin.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+        rules:
+          - backendRefs:
+              - name: *app
+                port: 8888
