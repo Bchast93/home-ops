@@ -36,19 +36,6 @@ spec:
             envFrom:
               - secretRef:
                   name: *app
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /auth
-                    port: &port 30000
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
             resources:
               requests:
                 cpu: 200m
@@ -70,7 +57,7 @@ spec:
               - type: pushover
         ports:
           http:
-            port: *port
+            port: &port 3000
     serviceMonitor:
       app:
         serviceName: *app
