@@ -57,7 +57,7 @@ spec:
         #       - type: pushover
         ports:
           http:
-            port: &port 3000
+            port: &port 30000
     serviceMonitor:
       app:
         serviceName: *app
