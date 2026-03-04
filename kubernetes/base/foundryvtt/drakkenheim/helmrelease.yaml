@@ -50,11 +50,11 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        annotations:
-          gatus.home-operations.com/endpoint: |
-            group: external
-            alerts:
-              - type: pushover
+        # annotations:
+        #   gatus.home-operations.com/endpoint: |
+        #     group: external
+        #     alerts:
+        #       - type: pushover
         ports:
           http:
             port: &port 3000
