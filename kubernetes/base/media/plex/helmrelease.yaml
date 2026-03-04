@@ -27,13 +27,15 @@ spec:
               repository: ghcr.io/home-operations/plex
               tag: 1.42.2.10156@sha256:9ad8a3506e1d8ebda873a668603c1a2c10e6887969564561be669efd65ae8871
             env:
-              TZ: America/Chicago
+              TZ: "${TIMEZONE}"
               PLEX_ADVERTISE_URL: "http://${SVC_PLEX_ADDR}:32400,https://plex.${SECRET_DOMAIN}"
               ALLOWED_NETWORKS: "${LAN_CIDR},${CLUSTER_CIDR},${SERVICE_CIDR},10.0.0.0/24,10.100.100.0/24"
-              PLEX_PREFERENCE_1: "AllowMediaDeletion=0"
-              PLEX_PREFERENCE_2: "EnableIPv6=0"
-              PLEX_PREFERENCE_3: "FriendlyName=ChastiPlex"
-              PLEX_PREFERENCE_4: "LanNetworksBandwidth=${LAN_CIDR}"
+              PLEX_PREFERENCE_DELETION: "AllowMediaDeletion=0"
+              PLEX_PREFERENCE_IPV6: "EnableIPv6=0"
+              PLEX_PREFERENCE_LAN: "LanNetworksBandwidth=${LAN_CIDR}"
+              PLEX_PREFERENCE_MAPPED_PORT: "ManualPortMappingPort=443"
+              PLEX_PREFERENCE_NAME: "FriendlyName=ChastiPlex"
+              PLEX_PREFERENCE_PORT_MAPPING: "ManualPortMappingMode=1"
             envFrom:
               - secretRef:
                   name: *app
@@ -55,25 +57,24 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 10
+            resources:
+              requests:
+                cpu: 200m
+                memory: 128Mi
+              limits:
+                memory: 4Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 16Gi
     defaultPodOptions:
-      nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [44]
+        supplementalGroups: [65536]
     service:
       app:
         type: LoadBalancer
@@ -88,27 +89,43 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 401"]
-        hostnames: ["plex.${SECRET_DOMAIN}"]
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/name: Plex
+          gethomepage.dev/icon: *app
+          gethomepage.dev/description: Media Player
+          gethomepage.dev/href: "https://plex.${SECRET_DOMAIN}"
+          gethomepage.dev/widget.type: *app
+          gethomepage.dev/widget.url: "http://${SVC_PLEX_ADDR}:32400"
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_PLEX_TOKEN}}` }}"
+          gethomepage.dev/pod-selector: app.kubernetes.io/name=plex
+        hostnames:
+          - "plex.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: network
         rules:
-          - backendRefs:
-              - identifier: app
+          - # Ref: https://forums.plex.tv/t/external-srt-subtitles-are-not-working-w-reverse-proxy/886540
+            backendRefs:
+              - name: *app
                 port: *port
             filters:
               - type: RequestHeaderModifier
                 requestHeaderModifier:
-                  remove: ["Range"]
+                  remove:
+                    - Range
             matches:
               - path:
                   type: PathPrefix
-                  value: /
+                  value: /library/streams
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config:
         existingClaim: *app
         globalMounts:
-          - path: /config
+          - path: /config/Library/Application Support/Plex Media Server
       cache:
         type: custom
         volumeSpec:
@@ -127,26 +144,45 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/Library/Application Support/Plex Media Server/Logs
+      backup:
+        globalMounts:
+          - path: /config/Backups
+        path: /volume1/backup/plex
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
       movies:
-        existingClaim: cifs-movies
         globalMounts:
           - path: /media/movies
+        path: /volume1/movies
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
       music:
-        existingClaim: cifs-music
         globalMounts:
           - path: /media/music
+        path: /volume1/music
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
       pictures:
-        existingClaim: cifs-pictures
         globalMounts:
           - path: /media/pictures
+        path: /volume1/pictures
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
       tv:
-        existingClaim: cifs-tv
         globalMounts:
           - path: /media/tv
+        path: /volume1/tv
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
       videos:
-        existingClaim: cifs-videos
         globalMounts:
           - path: /media/videos
+        path: /videos
+        server: ${SYNOLOGY_HOSTNAME}
+        type: nfs
+      tmp:
+        type: emptyDir
+        sizeLimit: 10Gi
       transcode:
         type: custom
         volumeSpec:
