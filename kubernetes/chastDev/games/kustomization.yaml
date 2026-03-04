@@ -10,5 +10,5 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - ./games-mariadb-cluster.yaml
-  # - ./pterodactyl.yaml
+  - ./pterodactyl.yaml
   - ./ut2k4.yaml
