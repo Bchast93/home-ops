@@ -20,14 +20,14 @@ spec:
               repository: ghcr.io/pterodactyl/panel
               tag: v1.11.11@sha256:3ad185c83818944cfd4dba4dcefbca5ffb64655aaa63363f8f76ce41cd19873f
             env:
-              DB_HOST: "{{ .Release.Namespace }}-pgbouncer.{{ .Release.Namespace }}.svc"
-              DB_PORT: 5432
+              DB_HOST: "{{ .Release.Namespace }}-mariadb.{{ .Release.Namespace }}.svc"
+              DB_PORT: 3306
               DB_DATABASE: *app
               DB_USERNAME: *app
               DB_PASSWD:
                 valueFrom:
                   secretKeyRef:
-                    name: "{{ .Release.Namespace }}-pguser-{{ .Release.Name }}"
+                    name: "{{ .Release.Namespace }}-mariadbuser-{{ .Release.Name }}"
                     key: password
               REDIS_HOST: "${NAMESPACE}-dragonfly"
               CACHE_DRIVER: "redis"
