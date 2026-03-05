@@ -22,7 +22,6 @@ spec:
               - server
               - "DM-Antalus.ut2?AdminName=admin?AdminPassword=admin?AutoAdjust=true?bPlayerMustBeReady=true?Game=XGame.XDeathMatch?MinPlayers=2?WeaponStay=false"
               - nohomedir
-              - lanplay
             resources:
               requests:
                 memory: 1Gi
@@ -37,6 +36,15 @@ spec:
           game:
             protocol: UDP
             port: 7777
+          query:
+            protocol: UDP
+            port: 7778
+          extra1:
+            protocol: UDP
+            port: 7787
+          master:
+            protocol: UDP
+            port: 28902
           web:
             protocol: TCP
             port: 8888
@@ -51,3 +59,10 @@ spec:
           - backendRefs:
               - name: *app
                 port: 8888
+    persistence:
+      config-file:
+        type: configMap
+        name: *app
+        globalMounts:
+          - path: /app/System/UT2004.ini
+            subPath: config.yaml
