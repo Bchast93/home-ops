@@ -9,6 +9,6 @@ components:
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
-  - ./games-mariadb-cluster.yaml
-  - ./pterodactyl.yaml
+  # - ./games-mariadb-cluster.yaml
+  # - ./pterodactyl.yaml
   - ./ut2k4.yaml
