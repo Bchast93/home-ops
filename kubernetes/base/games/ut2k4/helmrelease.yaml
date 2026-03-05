@@ -65,4 +65,4 @@ spec:
         name: *app
         globalMounts:
           - path: /app/System/UT2004.ini
-            subPath: config.yaml
+            subPath: UT2004.ini
