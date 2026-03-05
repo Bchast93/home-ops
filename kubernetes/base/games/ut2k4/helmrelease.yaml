@@ -20,7 +20,7 @@ spec:
             command: ["/app/System/ucc-bin"]
             args:
               - server
-              - "DM-Antalus.ut2?AdminName=admin?AdminPassword=admin?AutoAdjust=true?bPlayerMustBeReady=true?Game=XGame.XDeathMatch?MinPlayers=2?WeaponStay=false"
+              - "DM-Antalus.ut2?AdminName=admin?AdminPassword=admin?AutoAdjust=true?bPlayerMustBeReady=true?Game=XGame.XDeathMatch?MinPlayers=2?WeaponStay=false?ServerName=Blake"
               - nohomedir
             resources:
               requests:
@@ -59,10 +59,3 @@ spec:
           - backendRefs:
               - name: *app
                 port: 8888
-    persistence:
-      config-file:
-        type: configMap
-        name: *app
-        globalMounts:
-          - path: /app/System/UT2004.ini
-            subPath: UT2004.ini
