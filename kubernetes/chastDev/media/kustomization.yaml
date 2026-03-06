@@ -14,4 +14,4 @@ resources:
   - ./seerr.yaml
   - ./romm.yaml
   - ./tautulli.yaml
-  # - ./wizarr.yaml
+  - ./wizarr.yaml
