@@ -12,7 +12,7 @@ resources:
   - ./downloads-pgo-cluster.yaml
   - ./flaresolverr.yaml
   - ./flood.yaml
-  - ./bazarr.yaml
+  # - ./bazarr.yaml
   - ./prowlarr.yaml
   - ./radarr.yaml
   - ./recyclarr.yaml
