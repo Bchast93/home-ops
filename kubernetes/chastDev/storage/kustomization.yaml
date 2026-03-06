@@ -9,7 +9,6 @@ components:
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
-  - ../../common/storage/cifs-storage-classes.yaml
   - ../../common/storage/csi-driver-nfs.yaml
   - ../../common/storage/csi-driver-smb.yaml
   - ../../common/storage/local-path-provisioner.yaml

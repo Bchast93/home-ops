@@ -11,4 +11,3 @@ replacements:
 resources:
   - ../../common/database/dragonfly-operator.yaml
   - ../../common/database/crunchy-postgres-operator.yaml
-  # - ../../common/database/mariadb-operator.yaml
