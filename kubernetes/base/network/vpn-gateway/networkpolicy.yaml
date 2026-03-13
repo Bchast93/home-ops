@@ -20,10 +20,6 @@ spec:
         - ports:
             - port: "1637"
               protocol: UDP
-            - port: "53"
-              protocol: UDP
-            - port: "53"
-              protocol: TCP
     - toEntities:
         - cluster
 ---
