@@ -42,4 +42,4 @@ releases:
   - name: node-feature-discovery
     namespace: node-feature-discovery
     chart: oci://registry.k8s.io/nfd/charts/node-feature-discovery
-    version: 0.18.2
+    version: 0.18.3
