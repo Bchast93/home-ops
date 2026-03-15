@@ -42,7 +42,7 @@ releases:
   - name: node-feature-discovery
     namespace: kube-system
     chart: oci://registry.k8s.io/nfd/charts/node-feature-discovery
-    version: 0.18.2
+    version: 0.18.3
     values: ['./templates/values.yaml.gotmpl']
 
   - name: spegel
