@@ -12,6 +12,6 @@ resources:
   - ./media-pgo-cluster.yaml
   - ./plex.yaml
   - ./seerr.yaml
-  - ./romm.yaml
+  # - ./romm.yaml
   - ./tautulli.yaml
   - ./wizarr.yaml
