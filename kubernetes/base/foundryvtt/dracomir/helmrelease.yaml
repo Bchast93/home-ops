@@ -52,6 +52,9 @@ spec:
               - 0.0.0.0
               - --port
               - "8080"
+            envFrom:
+              - secretRef:
+                  name: *app
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
@@ -125,7 +128,26 @@ spec:
           - backendRefs:
               - identifier: filebrowser
                 port: *fbPort
-
+    configMaps:
+      config:
+        data:
+          config.yaml: |-
+            auth:
+              methods:
+                oidc:
+                  enabled: true
+                  clientId: filebrowser
+                  issuerUrl: https://auth.${SECRET_DOMAIN}
+                  scopes: email openid profile groups
+                  userIdentifier: preferred_username
+                  createUser: true
+            server:
+              database: /home/filebrowser/data/filebrowser.db
+              cacheDir: /home/filebrowser/tmp/.cache
+              sources:
+                - path: /data
+                  config:
+                    defaultEnabled: true
     persistence:
       data:
         globalMounts:
@@ -133,3 +155,11 @@ spec:
         path: /volume1/dracomir
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
+
+      config:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /home/filebrowser/config.yaml
+            subPath: config.yaml
+            readOnly: true

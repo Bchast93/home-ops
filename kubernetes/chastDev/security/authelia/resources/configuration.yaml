@@ -100,6 +100,14 @@ identity_providers:
       allowed_origins_from_client_redirect_uris: true
     clients:
 
+      - client_name: Filebrowser
+        client_id: '{{ env "FILEBROWSER_OIDC_CLIENT_ID" }}'
+        client_secret: '{{ secret "/app/secrets/FILEBROWSER_OIDC_CLIENT_SECRET" }}'
+        pre_configured_consent_duration: 1y
+        redirect_uris: ["https://filebrowser.${SECRET_DOMAIN}/api/auth/oidc/callback"]
+        scopes: ["openid", "profile", "email"]
+        response_types: ["code"]
+
       - client_name: flood
         client_id: '{{ env "FLOOD_OIDC_CLIENT_ID" }}'
         client_secret: '{{ secret "/app/secrets/FLOOD_OIDC_CLIENT_SECRET" }}'
