@@ -43,8 +43,8 @@ spec:
 
           filebrowser:
             image:
-              repository: docker.io/filebrowser/filebrowser
-              tag: v2.62.1@sha256:6a0b050d4a5aae763783137eb3049f4f960428b363d05182c774bf4cc633becc
+              repository: ghcr.io/gtsteffaniak/filebrowser
+              tag: 1.2.2-stable@sha256:0e8f0841fe731ef82db285af510e61fed7ad0a7622bf8d39ca6f3492930f8b58
             args:
               - --root
               - /data
