@@ -45,13 +45,6 @@ spec:
             image:
               repository: ghcr.io/gtsteffaniak/filebrowser
               tag: 1.2.2-stable@sha256:0e8f0841fe731ef82db285af510e61fed7ad0a7622bf8d39ca6f3492930f8b58
-            args:
-              - --root
-              - /data
-              - --address
-              - 0.0.0.0
-              - --port
-              - "8080"
             envFrom:
               - secretRef:
                   name: *app
@@ -135,6 +128,8 @@ spec:
             auth:
               methods:
                 oidc:
+                  address: 0.0.0.0
+                  port: 8080
                   enabled: true
                   clientId: filebrowser
                   clientSecret: ${FILEBROWSER_OIDC_CLIENT_SECRET}
