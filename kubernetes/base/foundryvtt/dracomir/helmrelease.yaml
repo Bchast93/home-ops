@@ -134,6 +134,8 @@ spec:
           config.yaml: |-
             auth:
               methods:
+                password:
+                  enabled: false
                 oidc:
                   enabled: true
                   clientId: filebrowser
