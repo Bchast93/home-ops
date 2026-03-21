@@ -151,7 +151,4 @@ spec:
       config:
         type: configMap
         identifier: config
-        globalMounts:
-          - path: /home/filebrowser/config.yaml
-            subPath: config.yaml
-            readOnly: true
+
