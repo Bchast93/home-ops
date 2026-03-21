@@ -79,7 +79,7 @@ spec:
         controller: dracomir
         ports:
           http:
-            port: &fbPort 8080
+            port: &fbPort 80
 
     serviceMonitor:
       app:
