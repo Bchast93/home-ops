@@ -128,8 +128,6 @@ spec:
             auth:
               methods:
                 oidc:
-                  address: 0.0.0.0
-                  port: 8080
                   enabled: true
                   clientId: filebrowser
                   clientSecret: ${FILEBROWSER_OIDC_CLIENT_SECRET}
