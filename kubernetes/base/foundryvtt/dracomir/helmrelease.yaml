@@ -137,6 +137,7 @@ spec:
                 oidc:
                   enabled: true
                   clientId: filebrowser
+                  clientSecret: ${FILEBROWSER_OIDC_CLIENT_SECRET}
                   issuerUrl: https://auth.${SECRET_DOMAIN}
                   scopes: email openid profile groups
                   userIdentifier: preferred_username
