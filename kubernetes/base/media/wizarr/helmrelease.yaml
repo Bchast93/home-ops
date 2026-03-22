@@ -23,6 +23,7 @@ spec:
               TZ: America/Chicago
               PUID: &uid 1000
               PGID: &gid 100
+              DISABLE_BUILTIN_AUTH: True
             resources:
               requests:
                 cpu: 15m
