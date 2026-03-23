@@ -66,6 +66,7 @@ access_control:
     # Wizarr public routes (must come before wildcard rules)
     - domain: "wizarr.${SECRET_DOMAIN}"
       resources:
+        - "^/$"
         - "^/join(/.*)?$"
         - "^/j(/.*)?$"
         - "^/static(/.*)?$"
