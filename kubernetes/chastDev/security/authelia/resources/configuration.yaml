@@ -69,16 +69,16 @@ access_control:
         - "cluster"
       policy: bypass
     # Wizarr public routes
-    - domain: "wizarr.${SECRET_DOMAIN}"
-      resources:
-        - '^/join(/.*)?$'
-        - '^/j(/.*)?$'
-        - '^/static(/.*)?$'
-        - '^/setup(/.*)?$'
-        - '^/wizard(/.*)?$'
-        - '^/image-proxy(/.*)?$'
-        - '^/cinema-posters(/.*)?$'
-      policy: bypass
+    # - domain: "wizarr.${SECRET_DOMAIN}"
+    #   resources:
+    #     - '^/join(/.*)?$'
+    #     - '^/j(/.*)?$'
+    #     - '^/static(/.*)?$'
+    #     - '^/setup(/.*)?$'
+    #     - '^/wizard(/.*)?$'
+    #     - '^/image-proxy(/.*)?$'
+    #     - '^/cinema-posters(/.*)?$'
+    #   policy: bypass
     # 2FA if not on cluster network
     - domain: "*.${SECRET_DOMAIN}"
       policy: two_factor
