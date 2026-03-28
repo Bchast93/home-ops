@@ -63,21 +63,21 @@ access_control:
       networks: ["${CLUSTER_CIDR}"]
 
   rules:
-    # Wizarr public routes
-    - domain: "wizarr.${SECRET_DOMAIN}"
-      resources:
-        - ^/join(/.*)?$
-        - ^/j(/.*)?$
-        - ^/static(/.*)?$
-        - ^/setup(/.*)?$
-        - ^/wizard(/.*)?$
-        - ^/image-proxy(/.*)?$
-        - ^/cinema-posters(/.*)?$
-      policy: bypass
     # Allow free access from cluster network
     - domain: "*.${SECRET_DOMAIN}"
       networks:
         - "cluster"
+      policy: bypass
+    # Wizarr public routes
+    - domain: "wizarr.${SECRET_DOMAIN}"
+      resources:
+        - '^/join(/.*)?$'
+        - '^/j(/.*)?$'
+        - '^/static(/.*)?$'
+        - '^/setup(/.*)?$'
+        - '^/wizard(/.*)?$'
+        - '^/image-proxy(/.*)?$'
+        - '^/cinema-posters(/.*)?$'
       policy: bypass
     # 2FA if not on cluster network
     - domain: "*.${SECRET_DOMAIN}"
