@@ -20,7 +20,7 @@ authentication_backend:
       group_name: cn
 
 log:
-  level: "debug"
+  level: "trace"
   format: "text"
   file_path: ""
   keep_stdout: false
