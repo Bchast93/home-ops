@@ -67,7 +67,7 @@ access_control:
     - domain: "wizarr.${SECRET_DOMAIN}"
       resources:
         - '^/join(/.*)?$'
-        - '^/j(/.*)?$'
+        - '^/j.*$'
         - '^/static(/.*)?$'
         - '^/setup(/.*)?$'
         - '^/wizard(/.*)?$'
