@@ -63,14 +63,6 @@ access_control:
       networks: ["${CLUSTER_CIDR}"]
 
   rules:
-    # Allow free access from cluster network
-    - domain: "*.${SECRET_DOMAIN}"
-      networks:
-        - "cluster"
-      policy: bypass
-    # 2FA if not on cluster network
-    - domain: "*.${SECRET_DOMAIN}"
-      policy: two_factor
     # Wizarr public routes
     - domain: "wizarr.${SECRET_DOMAIN}"
       resources:
@@ -82,6 +74,14 @@ access_control:
         - '^/image-proxy(/.*)?$'
         - '^/cinema-posters(/.*)?$'
       policy: bypass
+    # Allow free access from cluster network
+    - domain: "*.${SECRET_DOMAIN}"
+      networks:
+        - "cluster"
+      policy: bypass
+    # 2FA if not on cluster network
+    - domain: "*.${SECRET_DOMAIN}"
+      policy: two_factor
 
 totp:
   disable: false
