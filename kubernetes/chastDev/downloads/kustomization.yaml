@@ -18,3 +18,4 @@ resources:
   - ./recyclarr.yaml
   - ./sabnzbd.yaml
   - ./sonarr.yaml
+  - ./youtubedl.yaml
