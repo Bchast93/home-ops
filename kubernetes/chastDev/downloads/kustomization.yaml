@@ -15,7 +15,7 @@ resources:
   - ./bazarr.yaml
   - ./prowlarr.yaml
   - ./radarr.yaml
-  # - ./recyclarr.yaml
+  - ./recyclarr.yaml
   - ./sabnzbd.yaml
   - ./sonarr.yaml
   # - ./youtubedl.yaml
