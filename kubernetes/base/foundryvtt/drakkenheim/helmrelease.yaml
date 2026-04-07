@@ -22,6 +22,7 @@ spec:
             env:
               FOUNDRY_HOSTNAME: &host "drakkenheim.${SECRET_DOMAIN}"
               FOUNDRY_LOCAL_HOSTNAME: *host
+              FOUNDRY_COMPRESS_WEBSOCKET: "true"
               CONTAINER_CACHE: /data/container_cache
               CONTAINER_PATCHES: /data/container_patches
               CONTAINER_VERBOSE: "true"
