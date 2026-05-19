@@ -69,16 +69,16 @@ access_control:
         - "cluster"
       policy: bypass
     # Wizarr public routes
-    - domain: "wizarr.${SECRET_DOMAIN}"
-      resources:
-        - '^/join(/.*)?$'
-        - '^/j(/.*)?$'
-        - '^/static(/.*)?$'
-        - '^/setup(/.*)?$'
-        - '^/wizard(/.*)?$'
-        - '^/image-proxy(/.*)?$'
-        - '^/cinema-posters(/.*)?$'
-      policy: bypass
+    # - domain: "wizarr.${SECRET_DOMAIN}"
+    #   resources:
+    #     - '^/join(/.*)?$'
+    #     - '^/j(/.*)?$'
+    #     - '^/static(/.*)?$'
+    #     - '^/setup(/.*)?$'
+    #     - '^/wizard(/.*)?$'
+    #     - '^/image-proxy(/.*)?$'
+    #     - '^/cinema-posters(/.*)?$'
+    #   policy: bypass
     # 2FA if not on cluster network
     - domain: "*.${SECRET_DOMAIN}"
       policy: two_factor
@@ -168,10 +168,10 @@ identity_providers:
         redirect_uris: ["https://gitops.${SECRET_DOMAIN}/oauth2/callback"]
         claims_policy: "default"
 
-      - client_name: wizarr
-        client_id: '{{ env "WIZARR_OIDC_CLIENT_ID" }}'
-        client_secret: '{{ secret "/app/secrets/WIZARR_OIDC_CLIENT_SECRET" }}'
-        pre_configured_consent_duration: 1y
-        redirect_uris: ["https://wizarr.${SECRET_DOMAIN}/oauth2/callback"]
-        scopes: ["openid", "profile", "email"]
-        response_types: ["code"]
+      # - client_name: wizarr
+      #   client_id: '{{ env "WIZARR_OIDC_CLIENT_ID" }}'
+      #   client_secret: '{{ secret "/app/secrets/WIZARR_OIDC_CLIENT_SECRET" }}'
+      #   pre_configured_consent_duration: 1y
+      #   redirect_uris: ["https://wizarr.${SECRET_DOMAIN}/oauth2/callback"]
+      #   scopes: ["openid", "profile", "email"]
+      #   response_types: ["code"]
