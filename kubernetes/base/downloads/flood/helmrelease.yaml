@@ -39,7 +39,7 @@ spec:
           transmission:
             image:
               repository: ghcr.io/home-operations/transmission
-              tag: 4.1.1@sha256:3236ca32a6bc7d4d04386876a2bb785a72cdd8385512c63ee1af0f1cf8d9b830
+              tag: 4.1.2@sha256:510a22ac295edd4ee1e3f06628415434bf363a8f03b5342fa0ffdccf995691e3
             env:
               TZ: "${TIMEZONE}"
               TRANSMISSION__INCOMPLETE_DIR: /incomplete
