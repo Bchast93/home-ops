@@ -19,7 +19,7 @@ spec:
           gatus-sidecar:
             image:
               repository: ghcr.io/home-operations/gatus-sidecar
-              tag: 0.0.18@sha256:3e8ab2f65ac6eba268c963919e34e6f4c4e10439979de3ded71242240621edcd
+              tag: 0.0.19@sha256:a62610509ddb9d04ac562d13e096cecb391aa6647ac97d66ae5ba4db869bc6b8
             args:
               - --auto-httproute
               - --enable-httproute
@@ -59,7 +59,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {add: ["NET_RAW"], drop: ["ALL"]}
+              capabilities: { add: ["NET_RAW"], drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m
@@ -88,10 +88,10 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Observability
           gethomepage.dev/name: Gatus
-          gethomepage.dev/icon: gatus
+          gethomepage.dev/icon: *app
           gethomepage.dev/description: Status Page
-          gethomepage.dev/widget.type: gatus
-          gethomepage.dev/widget.url: http://gatus.observability
+          gethomepage.dev/widget.type: *app
+          gethomepage.dev/widget.url: "http://gatus.{{ .Release.Namespace }}"
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
           - "status.${SECRET_DOMAIN}"
