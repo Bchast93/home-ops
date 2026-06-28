@@ -36,12 +36,14 @@ spec:
           requests:
             storage: 5Gi
       topologySpreadConstraints:
-        - maxSkew: 3
-          topologyKey: "kubernetes.io/hostname"
-          whenUnsatisfiable: "DoNotSchedule"
+        - maxSkew: 1
+        - minDomains: 3
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
               postgres-operator.crunchydata.com/cluster: ${NAMESPACE}
+              postgres-operator.crunchydata.com/instance-set: pgo-cluster
   users: ${USERS}
   backups:
     pgbackrest:
@@ -107,7 +109,8 @@ spec:
           default_pool_size: "100"
           max_client_conn: "500"
       topologySpreadConstraints:
-        - maxSkew: 3
+        - maxSkew: 1
+        - minDomains: 3
           topologyKey: kubernetes.io/hostname
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
