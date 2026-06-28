@@ -14,8 +14,8 @@ resources:
   - ./flood.yaml
   - ./bazarr.yaml
   - ./prowlarr.yaml
-  # - ./radarr.yaml
+  - ./radarr.yaml
   - ./recyclarr.yaml
   - ./sabnzbd.yaml
-  # - ./sonarr.yaml
+  - ./sonarr.yaml
   # - ./youtubedl.yaml
