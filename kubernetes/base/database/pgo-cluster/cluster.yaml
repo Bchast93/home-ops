@@ -37,7 +37,6 @@ spec:
             storage: 5Gi
       topologySpreadConstraints:
         - maxSkew: 1
-          minDomains: 3
           topologyKey: kubernetes.io/hostname
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
@@ -110,7 +109,6 @@ spec:
           max_client_conn: "500"
       topologySpreadConstraints:
         - maxSkew: 1
-          minDomains: 3
           topologyKey: kubernetes.io/hostname
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
