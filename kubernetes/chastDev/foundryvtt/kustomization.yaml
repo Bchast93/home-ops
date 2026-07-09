@@ -9,6 +9,6 @@ components:
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
-  - ./dracomir.yaml
-  - ./drakkenheim.yaml
+  # - ./dracomir.yaml
+  # - ./drakkenheim.yaml
   - ./dnd-tools.yaml
