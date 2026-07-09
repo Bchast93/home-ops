@@ -17,8 +17,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/felddy/foundryvtt
-              tag: 14.364.0
+              repository: ghcr.io/felddy/foundryvtt
+              tag: v14.359.0
             env:
               FOUNDRY_HOSTNAME: &host "dracomir.${SECRET_DOMAIN}"
               FOUNDRY_LOCAL_HOSTNAME: *host
