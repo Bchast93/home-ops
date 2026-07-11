@@ -63,14 +63,32 @@ spec:
         connections:
           requireMsgr2: true
       placement:
-        mgr: &placement
+        mgr: &controlPlanePlacement
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
                     - key: node-role.kubernetes.io/control-plane
                       operator: Exists
-        mon: *placement
+
+        mon: *controlPlanePlacement
+
+        osd:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: kubernetes.io/hostname
+                      operator: In
+                      values:
+                        - wrkr01
+                        - wrkr02
+                        - wrkr03
+                        - wrkr04
+          tolerations:
+            - key: tuppr.home-operations.com/outdated
+              operator: Exists
+              effect: PreferNoSchedule
       resources:
         mgr:
           requests:
