@@ -96,25 +96,25 @@ spec:
             memory: 128Mi
           limits:
             memory: 256Mi
-    storage:
-      useAllNodes: false
-      useAllDevices: false
-      nodes:
-        - name: wrkr01
-          devices:
-            - name: /dev/disk/by-id/nvme-CT1000P3PSSD8_24494CA7AED0
+      storage:
+        useAllNodes: false
+        useAllDevices: false
+        nodes:
+          - name: wrkr01
+            devices:
+              - name: /dev/disk/by-id/nvme-CT1000P3PSSD8_24494CA7AED0
 
-        - name: wrkr02
-          devices:
-            - name: /dev/disk/by-id/nvme-CT1000P3PSSD8_24494CA7AED1
+          - name: wrkr02
+            devices:
+              - name: /dev/disk/by-id/nvme-CT1000P3PSSD8_24494CA7AED1
 
-        - name: wrkr03
-          devices:
-            - name: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y750874R
+          - name: wrkr03
+            devices:
+              - name: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y750874R
 
-        - name: wrkr04
-          devices:
-            - name: /dev/disk/by-id/nvme-CT1000P3PSSD8_24494CA7D8D9
+          - name: wrkr04
+            devices:
+              - name: /dev/disk/by-id/nvme-CT1000P3PSSD8_24494CA7D8D9
     cephBlockPools:
       - name: ceph-blockpool
         spec:
