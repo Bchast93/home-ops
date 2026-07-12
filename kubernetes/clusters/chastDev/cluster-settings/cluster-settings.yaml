@@ -8,7 +8,7 @@ data:
   KS_RETRY_INTERVAL: "2m"
   KS_TIMEOUT: "5m"
 
-  VAULT_PREFIX: "chastDev"
+  VAULT_PREFIX: "chastdev"
 
   TIMEZONE: "US/Central"
   CLUSTER_CIDR: "10.42.0.0/16"
