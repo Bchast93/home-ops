@@ -23,7 +23,7 @@ _.python.venv = { path = "{{config_root}}/.venv", create = true }
 "aqua:kubernetes/kubectl" = "1.33.1"
 "aqua:mikefarah/yq" = "4.53.3"
 "aqua:siderolabs/talos" = "1.13.6"
-"aqua:yannh/kubeconform" = "0.7.0"
+"aqua:yannh/kubeconform" = "0.8.0"
 "pipx" = "1.7.1"
 "pipx:makejinja" = "2.8.2"
 "pipx:pre-commit" = "4.3.0"
