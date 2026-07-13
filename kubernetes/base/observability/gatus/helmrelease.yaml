@@ -13,8 +13,6 @@ spec:
     controllers:
       gatus:
         type: statefulset
-        serviceAccount:
-          identifier: gatus
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
