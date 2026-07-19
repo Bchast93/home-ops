@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/felddy/foundryvtt
-              tag: 14.364.0
+              tag: 13.351.0
             env:
               FOUNDRY_HOSTNAME: &host "drakkenheim.${SECRET_DOMAIN}"
               FOUNDRY_LOCAL_HOSTNAME: *host
@@ -33,7 +33,7 @@ spec:
               FOUNDRY_PROXY_SSL: "true"
               NPM_CONFIG_CACHE: /data/npm-cache
               NPM_CONFIG_PREFIX: /data/npm-global
-              # CONTAINER_PATCH_URLS: https://gist.githubusercontent.com/felddy/a02d66c3817f8223652d96febe580153/raw/foundryvtt-module-check.sh
+              CONTAINER_PATCH_URLS: https://gist.githubusercontent.com/felddy/a02d66c3817f8223652d96febe580153/raw/foundryvtt-module-check.sh
             envFrom:
               - secretRef:
                   name: *app
