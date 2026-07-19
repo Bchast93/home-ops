@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kopiur.home-operations.com/clusterrepository_v1alpha1.json
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: ClusterRepository
+metadata:
+  name: nas
+spec:
+  allowedNamespaces:
+    all: true
+  backend:
+    filesystem:
+      path: /repo
+      volume:
+        nfs:
+          server: ${QNAP_HOSTNAME}
+          path: "/appdata/${VAULT_PREFIX}-kopia"
+  encryption:
+    passwordSecretRef:
+      name: kopia
+      namespace: ${NAMESPACE}
+      key: KOPIA_PASSWORD
+  identityDefaults:
+    hostnameExpr: namespace
+    usernameExpr: namespace + '-' + policyName
+  moverDefaults:
+    cache:
+      capacity: 1Mi
+      mode: Ephemeral
+      storageClassName: openebs-hostpath
+    podSecurityContext:
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+    scratch:
+      capacity: 1Mi
+      storageClassName: openebs-hostpath
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+    ttlSecondsAfterFinished: 300
+  scheduleDefaults:
+    timezone: ${TIMEZONE}
