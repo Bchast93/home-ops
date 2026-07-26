@@ -24,7 +24,7 @@ _.python.venv = { path = "{{config_root}}/.venv", create = true }
 "aqua:mikefarah/yq" = "4.53.3"
 "aqua:siderolabs/talos" = "1.13.7"
 "aqua:yannh/kubeconform" = "0.8.0"
-"pipx" = "1.16.0"
+"pipx" = "1.16.2"
 "pipx:makejinja" = "2.8.2"
 "pipx:pre-commit" = "4.6.0"
 "pipx:flux-local" = "latest"
