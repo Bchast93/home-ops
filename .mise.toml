@@ -29,5 +29,5 @@ _.python.venv = { path = "{{config_root}}/.venv", create = true }
 "pipx:pre-commit" = "4.6.1"
 "pipx:flux-local" = "latest"
 "python" = "3.14.7"
-"ubi:mitsuhiko/minijinja" = "2.21.0"
+"ubi:mitsuhiko/minijinja" = "2.23.0"
 "aqua:shellcheck" = "0.11.0"
