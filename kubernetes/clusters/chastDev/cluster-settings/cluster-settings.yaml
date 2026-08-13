@@ -31,6 +31,9 @@ data:
   GIT_REPO_REF: "refs/heads/main"
   INGRESS_SECURE_PATH: "spec/values/ingress/app/annotations"
 
+  KOPIUR_SNAPSHOTCLASS: "csi-ceph-blockpool"
+  KOPIUR_STORAGECLASS: "ceph-block"
+
   VOLSYNC_PVC_STORAGECLASS: "ceph-block"
   VOLSYNC_SNAPSHOTCLASS: "csi-ceph-blockpool"
   VOLSYNC_CACHE_SNAPSHOTCLASS: "ceph-block"

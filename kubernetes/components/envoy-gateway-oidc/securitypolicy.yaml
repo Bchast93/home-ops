@@ -1,23 +1,21 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: SecurityPolicy
 metadata:
-  name: ${APP}-oidc
+  name: ${APP_SUBDOMAIN:-${APP}}-oidc
 spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      name: ${APP}
+      name: ${OIDC_ROUTE_NAME:-${APP}}
   oidc:
     provider:
-      issuer: "https://auth.${SECRET_DOMAIN}"
+      issuer: https://auth.${SECRET_DOMAIN}
+      authorizationEndpoint: https://auth.${SECRET_DOMAIN}/api/oidc/authorization
+      tokenEndpoint: https://auth.${SECRET_DOMAIN}/api/oidc/token
     clientIDRef:
-      name: "${APP}-oidc"
+      name: ${APP_SUBDOMAIN:-${APP}}-oidc
     clientSecret:
-      name: "${APP}-oidc"
-    refreshToken: true
-    cookieDomain: "${SECRET_DOMAIN}"
-    redirectURL: "https://${APP_SUBDOMAIN:-${APP}}.${SECRET_DOMAIN}/oauth2/callback"
-    logoutPath: "${LOGOUT_PATH:-/logout}"
-    scopes: ["openid", "profile", "email"]
+      name: ${APP_SUBDOMAIN:-${APP}}-oidc
+    redirectURL: https://${APP_SUBDOMAIN:-${APP}}.${SECRET_DOMAIN}/oauth2/callback

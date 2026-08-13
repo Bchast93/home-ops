@@ -1,0 +1,28 @@
+---
+apiVersion: authelia.milas.dev/v1alpha2
+kind: OIDCClient
+metadata:
+  name: ${APP_SUBDOMAIN:-${APP}}
+  annotations:
+    authelia.milas.dev/oidc-provider: security/default
+spec:
+  description: ${OIDC_DESCRIPTION:-${APP}}
+  grant_types:
+    - authorization_code
+    - refresh_token
+  preconfigured_consent_duration: 1y
+  redirect_uris:
+    - https://${APP_SUBDOMAIN:-${APP}}.${SECRET_DOMAIN}/oauth2/callback
+  response_types:
+    - code
+  secret_ref:
+    name: ${APP_SUBDOMAIN:-${APP}}-oidc
+    fields:
+      client_id: client-id
+      client_secret: client-secret
+  scopes:
+    - openid
+    - offline_access
+  # default should not be needed, but it is required for the operator to work issue: #6
+  token_endpoint:
+    auth_method: client_secret_basic
