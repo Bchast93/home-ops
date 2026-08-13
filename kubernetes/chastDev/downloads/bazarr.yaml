@@ -11,6 +11,7 @@ spec:
   components:
     - ../../../components/theme-park
     - ../../../components/volsync
+    - ../../../components/kopiur/backup
   interval: 1h
   path: ./kubernetes/base/downloads/bazarr
   dependsOn:
