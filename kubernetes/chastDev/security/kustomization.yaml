@@ -4,12 +4,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: security
 components:
-  - ../../clusters/kdev
+  - ../../clusters/chastDev
   - ../../components/common
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - ./namespace.yaml
-  # - ../../common/security/authelia.yaml
-  # - ../../common/security/authelia-oidc-operator.yaml
-  # - ../../common/security/security-pgo-cluster.yaml
+  - ../../common/security/authelia.yaml
+  - ../../common/security/authelia-oidc-operator.yaml
+  - ../../common/security/security-pgo-cluster.yaml
