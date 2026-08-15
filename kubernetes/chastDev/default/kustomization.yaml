@@ -4,10 +4,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: default
 components:
-  - ../../clusters/chastDev
+  - ../../clusters/ChastDev
   - ../../components/common
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - ./namespace.yaml
-  #- ./homepage.yaml
+  - ../../common/default/theme-park.yaml
+#  - ./homepage.yaml
