@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/cilium.io/ciliumnetworkpolicy_v2.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumnetworkpolicy_v2.json
 # This policy allows the vpn-gateway to go out to the internet on port 1637 and also to talk to any cluster entities
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
@@ -7,12 +7,12 @@ metadata:
   name: vpn-gateway
   labels:
     app.kubernetes.io/instance: &instance vpn-gateway
-    app.kubernetes.io/name: &name pod-gateway
+    app.kubernetes.io/service: &service vpn-gateway-main
 spec:
   endpointSelector:
     matchLabels:
       app.kubernetes.io/instance: *instance
-      app.kubernetes.io/name: *name
+      app.kubernetes.io/service: *service
   egress:
     - toCIDR:
         - 0.0.0.0/0
@@ -30,12 +30,12 @@ metadata:
   name: vpn-gateway-vxlan
   labels:
     app.kubernetes.io/instance: &instance vpn-gateway
-    app.kubernetes.io/name: &name pod-gateway
+    app.kubernetes.io/service: &service vpn-gateway-main
 spec:
   endpointSelector:
     matchLabels:
       app.kubernetes.io/instance: *instance
-      app.kubernetes.io/name: *name
+      app.kubernetes.io/service: *service
   egress:
     - toPorts:
         - ports:
@@ -58,12 +58,31 @@ metadata:
   name: vpn-gateway-http-control
   labels:
     app.kubernetes.io/instance: &instance vpn-gateway
-    app.kubernetes.io/name: &name pod-gateway
+    app.kubernetes.io/service: &service vpn-gateway-main
 spec:
   endpointSelector:
     matchLabels:
       app.kubernetes.io/instance: *instance
-      app.kubernetes.io/name: *name
+      app.kubernetes.io/service: *service
+  ingress:
+    - toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+---
+# vpn-gateway-pod-gateway webhook receive traffic
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: vpn-gateway-webhook
+  labels:
+    app.kubernetes.io/instance: &instance vpn-gateway
+    app.kubernetes.io/service: &service vpn-gateway-webhook
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: *instance
+      app.kubernetes.io/service: *service
   ingress:
     - toPorts:
         - ports:

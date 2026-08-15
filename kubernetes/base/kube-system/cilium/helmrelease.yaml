@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -12,16 +12,17 @@ spec:
   values:
     autoDirectNodeRoutes: true
     bandwidthManager:
-      enabled: true
       bbr: true
-    bpf:
-      datapathMode: netkit
-      masquerade: true
-      preallocateMaps: true
-      tproxy: true
-    bpfClockProbe: true
+      enabled: true
     bgpControlPlane:
       enabled: true
+    bpf:
+      datapathMode: netkit
+      lbModeAnnotation: true
+      masquerade: true
+      preallocateMaps: true
+      mapSizeFlows: 65536
+    bpfClockProbe: true
     cgroup:
       automount:
         enabled: false
@@ -55,11 +56,13 @@ spec:
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
-      enabled: true
+      enabled: false
     loadBalancer:
       algorithm: maglev
       mode: dsr
-    localRedirectPolicy: true
+      dsrDispatch: opt
+    localRedirectPolicies:
+      enabled: true
     operator:
       dashboards:
         enabled: true
@@ -98,3 +101,8 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
+          - PERFMON
+          - BPF
+    socketLB:
+      enabled: true
+      hostNamespaceOnly: true

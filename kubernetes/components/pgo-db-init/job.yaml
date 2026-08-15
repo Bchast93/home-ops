@@ -4,6 +4,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: &name "${APP}-db-init"
+  #annotations:
+  #  kustomize.toolkit.fluxcd.io/reconcile: disabled
   labels:
     app.kubernetes.io/instance: *name
     app.kubernetes.io/name: *name
@@ -49,6 +51,8 @@ spec:
               drop: ["ALL"]
             readOnlyRootFilesystem: true
       securityContext:
-        runAsGroup: 65534
         runAsNonRoot: true
-        runAsUser: 65534
+        runAsUser: 1000
+        runAsGroup: 100
+        fsGroup: 100
+        fsGroupChangePolicy: OnRootMismatch

@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/postgres-operator.crunchydata.com/pgadmin_v1beta1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgres-operator.crunchydata.com/pgadmin_v1beta1.json
 apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PGAdmin
 metadata:
@@ -37,4 +37,4 @@ spec:
           OAUTH2_SERVER_METADATA_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
           OAUTH2_SCOPE: openid email profile
           OAUTH2_ICON: fa-openid
-          OAUTH2_BUTTON_COLOR: '#2db1fd'
+          OAUTH2_BUTTON_COLOR: "#2db1fd"

@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -9,13 +9,13 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
-      namespace: external-secrets
+    - name: downloads-pgo-cluster
+      namespace: downloads
   interval: 1h
   path: ./kubernetes/base/network/vpn-gateway
   postBuild:
     substitute:
-      INBOUND_PORTS: "14738"
+      INBOUND_PORT: "60112"
       # ROUTED_NAMESPACES should be a valid JSON array of strings representing the namespaces that will have vpn access
       ROUTED_NAMESPACES: '["downloads"]'
       # PUBLIC_PORTS should be a valid JSON array of objects representing the nat inbound port config for each service
@@ -25,8 +25,8 @@ spec:
             "hostname": "flood",
             "IP": 10,
             "ports": [
-              { "type": "udp", "port": 14738 },
-              { "type": "tcp", "port": 14738 }
+              { "type": "udp", "port": 60112 },
+              { "type": "tcp", "port": 60112 }
             ]
           }
         ]

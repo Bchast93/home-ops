@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/monitoring.coreos.com/podmonitor_v1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/podmonitor_v1.json
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
@@ -11,7 +11,8 @@ spec:
       path: /metrics
       port: exporter
       relabelings:
-        - sourceLabels: [__meta_kubernetes_namespace, __meta_kubernetes_pod_label_postgres_operator_crunchydata_com_cluster]
+        - sourceLabels:
+            [__meta_kubernetes_namespace, __meta_kubernetes_pod_label_postgres_operator_crunchydata_com_cluster]
           targetLabel: pg_cluster
           separator: "/"
           replacement: "$1$2"

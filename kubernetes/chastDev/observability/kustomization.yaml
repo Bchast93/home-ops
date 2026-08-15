@@ -9,6 +9,7 @@ components:
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
+  - ./namespace.yaml
   # - ../../common/observability/gatus.yaml
   - ../../common/observability/grafana-instance.yaml
   - ../../common/observability/grafana-operator.yaml
