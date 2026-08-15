@@ -11,7 +11,7 @@ replacements:
 resources:
   - ./namespace.yaml
   # - ./bazarr.yaml
-  - ./downloads-pgo-cluster.yaml
+  # - ./downloads-pgo-cluster.yaml
   - ./flaresolverr.yaml
   - ./flood.yaml
   - ./prowlarr.yaml
