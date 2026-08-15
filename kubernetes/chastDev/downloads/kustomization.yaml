@@ -10,7 +10,7 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - ./namespace.yaml
-  - ./bazarr.yaml
+  # - ./bazarr.yaml
   - ./downloads-pgo-cluster.yaml
   - ./flaresolverr.yaml
   - ./flood.yaml

@@ -1,11 +1,11 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/dragonflydb.io/dragonfly_v1alpha1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/dragonflydb.io/dragonfly_v1alpha1.json
 apiVersion: dragonflydb.io/v1alpha1
 kind: Dragonfly
 metadata:
   name: ${NAMESPACE}-dragonfly
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.39.0
+  image: ghcr.io/dragonflydb/dragonfly:v1.40.1
   replicas: 2
   env:
     - name: MAX_MEMORY
