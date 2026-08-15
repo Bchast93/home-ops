@@ -42,6 +42,7 @@ data:
   VOLSYNC_S3_BUCKET: "chastdev-volsync"
 
   THEME_PARK_THEME: "space-gray"
+  OPENEBS_HOSTPATH: "/var/mnt/lpp-0"
 
   SVC_VPN_ADDR: "10.100.150.133"
   SVC_POSTGRES_ADDR: "10.100.150.134"
