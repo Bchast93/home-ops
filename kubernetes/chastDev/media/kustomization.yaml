@@ -10,7 +10,7 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - ./namespace.yaml
-  # - ./media-pgo-cluster.yaml
+  - ./media-pgo-cluster.yaml
   - ./plex.yaml
   - ./seerr.yaml
   # - ./romm.yaml
