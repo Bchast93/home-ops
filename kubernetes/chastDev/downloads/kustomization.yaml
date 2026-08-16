@@ -10,13 +10,13 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - ./namespace.yaml
-  # - ./bazarr.yaml
+  - ./bazarr.yaml
   - ./downloads-pgo-cluster.yaml
-  # - ./flaresolverr.yaml
-  # - ./flood.yaml
-  # - ./prowlarr.yaml
-  # - ./radarr.yaml
+  - ./flaresolverr.yaml
+  - ./flood.yaml
+  - ./prowlarr.yaml
+  - ./radarr.yaml
   # - ./recyclarr.yaml
-  # - ./sabnzbd.yaml
-  # - ./sonarr.yaml
+  - ./sabnzbd.yaml
+  - ./sonarr.yaml
   # - ./youtubedl.yaml
