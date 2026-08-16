@@ -10,7 +10,8 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../components/theme-park
-    - ../../../components/volsync
+    # - ../../../components/volsync
+    - ../../../components/kopiur/backup
   dependsOn:
     - name: volsync
       namespace: storage

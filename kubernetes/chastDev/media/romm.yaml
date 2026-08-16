@@ -11,7 +11,8 @@ spec:
   components:
     - ../../../components/pgo-db-init
     - ../../../components/dragonfly-cluster
-    - ../../../components/volsync
+    # - ../../../components/volsync
+    - ../../../components/kopiur/backup
   dependsOn:
     - name: media-pgo-cluster
     - name: volsync

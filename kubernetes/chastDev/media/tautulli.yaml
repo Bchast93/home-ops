@@ -10,7 +10,8 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../components/envoy-gateway-oidc
-    - ../../../components/volsync
+    # - ../../../components/volsync
+    - ../../../components/kopiur/backup
   dependsOn:
     - name: volsync
       namespace: storage

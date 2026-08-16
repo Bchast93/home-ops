@@ -11,7 +11,8 @@ spec:
   components:
     - ../../../components/envoy-gateway-oidc
     - ../../../components/theme-park
-    - ../../../components/volsync
+    # - ../../../components/volsync
+    - ../../../components/kopiur/backup
   dependsOn:
     - name: volsync
       namespace: storage
