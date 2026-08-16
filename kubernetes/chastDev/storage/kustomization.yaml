@@ -11,6 +11,7 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - ./namespace.yaml
+  - ../../common/storage/ceph-csi-drivers.yaml
   - ../../common/storage/csi-driver-nfs.yaml
   - ../../common/storage/csi-driver-smb.yaml
   - ../../common/storage/kopia.yaml
