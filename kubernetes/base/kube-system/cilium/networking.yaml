@@ -13,7 +13,7 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumBGPAdvertisement
 metadata:
-  name: bgp-advertisement-config
+  name: l3-bgp-advertisement
   labels:
     advertise: bgp
 spec:
@@ -30,7 +30,7 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig
 metadata:
-  name: bgp-peer-config-v4
+  name: l3-bgp-peer-config
 spec:
   families:
     - afi: ipv4
