@@ -78,7 +78,7 @@ spec:
       downloads:
         type: nfs
         path: /downloads/${VAULT_PREFIX}/complete
-        server: ${QNAP_HOSTNAME}
+        server: ${SYNOLOGY_HOSTNAME}
         advancedMounts:
           sonarr:
             app:
@@ -89,7 +89,7 @@ spec:
       tv:
         type: nfs
         path: /tv
-        server: ${QNAP_HOSTNAME}
+        server: ${SYNOLOGY_HOSTNAME}
         globalMounts:
           - path: /media/tv
       tmp:

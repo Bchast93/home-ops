@@ -101,7 +101,7 @@ spec:
       downloads:
         type: nfs
         path: /downloads/${VAULT_PREFIX}/complete
-        server: ${QNAP_HOSTNAME}
+        server: ${SYNOLOGY_HOSTNAME}
         advancedMounts:
           flood:
             app:
@@ -113,7 +113,7 @@ spec:
       incomplete:
         type: nfs
         path: /downloads/${VAULT_PREFIX}/incomplete
-        server: ${QNAP_HOSTNAME}
+        server: ${SYNOLOGY_HOSTNAME}
         advancedMounts:
           flood:
             app:

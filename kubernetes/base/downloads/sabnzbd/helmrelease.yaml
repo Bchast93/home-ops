@@ -65,33 +65,33 @@ spec:
       applications:
         type: nfs
         path: /applications
-        server: ${QNAP_HOSTNAME}
+        server: ${SYNOLOGY_HOSTNAME}
         globalMounts:
           - path: /media/applications
       downloads:
         type: nfs
         path: /downloads/${VAULT_PREFIX}/complete
-        server: ${QNAP_HOSTNAME}
+        server: ${SYNOLOGY_HOSTNAME}
         globalMounts:
           - path: /downloads/complete
             subPath: *app
       games:
         type: nfs
         path: /games
-        server: ${QNAP_HOSTNAME}
+        server: ${SYNOLOGY_HOSTNAME}
         globalMounts:
           - path: /media/games
       incomplete:
         type: nfs
         path: /downloads/${VAULT_PREFIX}/incomplete
-        server: ${QNAP_HOSTNAME}
+        server: ${SYNOLOGY_HOSTNAME}
         globalMounts:
           - path: /incomplete
             subPath: *app
       misc:
         type: nfs
         path: /misc
-        server: ${QNAP_HOSTNAME}
+        server: ${SYNOLOGY_HOSTNAME}
         globalMounts:
           - path: /media/misc
       tmp:
