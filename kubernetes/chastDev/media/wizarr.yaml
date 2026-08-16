@@ -13,7 +13,7 @@ spec:
     # - ../../../components/volsync
     - ../../../components/kopiur/backup
   dependsOn:
-    - name: volsync
+    - name: kopiur-repository
       namespace: storage
   interval: 30m
   path: ./kubernetes/base/media/wizarr

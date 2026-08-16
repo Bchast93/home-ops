@@ -19,7 +19,7 @@ spec:
       strategy: rollback
       retries: 3
   dependsOn:
-    - name: volsync
+    - name: kopiur-repository
       namespace: storage
     - name: cloudflare-tunnel
       namespace: network

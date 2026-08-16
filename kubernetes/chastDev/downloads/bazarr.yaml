@@ -16,12 +16,12 @@ spec:
   interval: 1h
   path: ./kubernetes/base/downloads/bazarr
   dependsOn:
-    - name: volsync
+    - name: kopiur-repository
       namespace: storage
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi
   prune: true
   retryInterval: 2m
   sourceRef:

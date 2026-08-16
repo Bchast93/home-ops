@@ -13,15 +13,14 @@ spec:
     # - ../../../components/volsync
     - ../../../components/kopiur/backup
   dependsOn:
-    - name: volsync
+    - name: kopiur-repository
       namespace: storage
   interval: 30m
   path: ./kubernetes/base/downloads/sabnzbd
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 50Gi
-      VOLSYNC_CACHE_CAPACITY: 500Mi
+      KOPIUR_CAPACITY: 50Gi
   prune: true
   sourceRef:
     kind: GitRepository

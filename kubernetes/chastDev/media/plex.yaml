@@ -12,17 +12,14 @@ spec:
     # - ../../../components/volsync
     - ../../../components/kopiur/backup
   dependsOn:
-    - name: volsync
+    - name: kopiur-repository
       namespace: storage
   interval: 30m
   path: ./kubernetes/base/media/plex
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CACHE_CAPACITY: 80Gi
-      VOLSYNC_CACHE_SNAPSHOTCLASS: ceph-block
-      VOLSYNC_CAPACITY: 200Gi
-      VOLSYNC_SCHEDULE: "0 */6 * * *"
+      KOPIUR_CAPACITY: 70Gi
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
