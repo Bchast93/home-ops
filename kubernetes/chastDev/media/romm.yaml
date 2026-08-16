@@ -15,8 +15,6 @@ spec:
     - ../../../components/kopiur/backup
   dependsOn:
     - name: media-pgo-cluster
-    - name: volsync
-      namespace: storage
   interval: 30m
   path: ./kubernetes/base/media/romm
   postBuild:
