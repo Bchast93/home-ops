@@ -77,7 +77,7 @@ spec:
         existingClaim: *app
       downloads:
         type: nfs
-        path: /downloads/${VAULT_PREFIX}/complete
+        path: /volume1/downloads/${VAULT_PREFIX}/complete
         server: ${SYNOLOGY_HOSTNAME}
         advancedMounts:
           sonarr:
