@@ -13,10 +13,10 @@ resources:
   # - ./bazarr.yaml
   - ./downloads-pgo-cluster.yaml
   - ./flaresolverr.yaml
-  # - ./flood.yaml
+  - ./flood.yaml
   - ./prowlarr.yaml
-  # - ./radarr.yaml
+  - ./radarr.yaml
   # - ./recyclarr.yaml
-  # - ./sabnzbd.yaml
-  # - ./sonarr.yaml
+  - ./sabnzbd.yaml
+  - ./sonarr.yaml
   # - ./youtubedl.yaml
