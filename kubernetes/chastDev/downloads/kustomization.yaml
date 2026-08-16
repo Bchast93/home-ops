@@ -12,11 +12,11 @@ resources:
   - ./namespace.yaml
   # - ./bazarr.yaml
   - ./downloads-pgo-cluster.yaml
-  - ./flaresolverr.yaml
-  - ./flood.yaml
-  - ./prowlarr.yaml
-  - ./radarr.yaml
-  - ./recyclarr.yaml
-  - ./sabnzbd.yaml
-  - ./sonarr.yaml
+  # - ./flaresolverr.yaml
+  # - ./flood.yaml
+  # - ./prowlarr.yaml
+  # - ./radarr.yaml
+  # - ./recyclarr.yaml
+  # - ./sabnzbd.yaml
+  # - ./sonarr.yaml
   # - ./youtubedl.yaml
