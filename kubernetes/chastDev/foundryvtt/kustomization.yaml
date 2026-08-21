@@ -6,6 +6,7 @@ namespace: foundryvtt
 components:
   - ../../clusters/chastDev
   - ../../components/common
+  - ../../components/kopiur/secret
 replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
