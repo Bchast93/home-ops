@@ -82,9 +82,13 @@ spec:
               - identifier: app
                 port: *port
     persistence:
+      config:
+        existingClaim: *app
       data:
         globalMounts:
           - path: /data
         path: /volume1/drakkenheim
         server: ${SYNOLOGY_HOSTNAME}
         type: nfs
+      tmp:
+        type: emptyDir
