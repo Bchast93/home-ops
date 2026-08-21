@@ -11,5 +11,5 @@ replacements:
 resources:
   - ./namespace.yaml
   - ./dracomir.yaml
-  - ./drakkenheim.yaml
+  # - ./drakkenheim.yaml
   - ./dnd-tools.yaml
