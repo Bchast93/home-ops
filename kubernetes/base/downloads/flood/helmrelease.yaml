@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: docker.io/jesec/flood
-              tag: 4.14.3@sha256:c887dad96b40a37fa86d4d77a409dd06220b849c6a8b7d0e2c3ae6dd033deea3
+              tag: 4.16.1@sha256:2e18f1fa2578082da70f8917bb733b1ee6593aaf9a79ded91f2890d82daca3c1
             env:
               TZ: "${TIMEZONE}"
               FLOOD_OPTION_noauth: "true"
