@@ -15,5 +15,5 @@ resources:
   - ./plex.yaml
   - ./seerr.yaml
   # - ./romm.yaml
-  - ./tautulli.yaml
+  # - ./tautulli.yaml
   # - ./wizarr.yaml
