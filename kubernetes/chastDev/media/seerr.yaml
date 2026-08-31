@@ -18,16 +18,15 @@ spec:
   postBuild:
     substitute:
       APP: *app
-  patches:
-    - target:
-        kind: PersistentVolumeClaim
-        name: seerr
-      patch: |
-        $patch: delete
-        apiVersion: v1
-        kind: PersistentVolumeClaim
-        metadata:
-          name: seerr
+    patches:
+      - target:
+          kind: PersistentVolumeClaim
+        patch: |
+          $patch: delete
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: ignored
   prune: true
   sourceRef:
     kind: GitRepository
