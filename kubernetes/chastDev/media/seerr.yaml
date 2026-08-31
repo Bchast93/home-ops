@@ -9,7 +9,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    # - ../../../components/volsync
     - ../../../components/kopiur/backup
   dependsOn:
     - name: kopiur-repository
@@ -19,6 +18,16 @@ spec:
   postBuild:
     substitute:
       APP: *app
+  patches:
+    - target:
+        kind: PersistentVolumeClaim
+        name: seerr
+      patch: |
+        $patch: delete
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        metadata:
+          name: seerr
   prune: true
   sourceRef:
     kind: GitRepository
