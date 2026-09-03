@@ -13,7 +13,7 @@ resources:
   - ./namespace.yaml
   # - ./media-pgo-cluster.yaml
   - ./plex.yaml
-  - ./seerr.yaml
+  # - ./seerr.yaml
   # - ./romm.yaml
   - ./tautulli.yaml
   # - ./wizarr.yaml
