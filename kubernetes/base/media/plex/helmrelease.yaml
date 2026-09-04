@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/plex
-              tag: 1.43.2.10687@sha256:be00a2ad851ea3193cd870636f908eb6425ad89390f23cdb08daa35ab5cceacc
+              tag: 1.43.3.10896@sha256:bbf0f4390ab8fb68ada361c41f43c7b906c9879f15331210bc59bfd732fd9144
             env:
               TZ: "${TIMEZONE}"
               PLEX_ADVERTISE_URL: "http://${SVC_PLEX_ADDR}:32400,https://plex.${SECRET_DOMAIN}"
