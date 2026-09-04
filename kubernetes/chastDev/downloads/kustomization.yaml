@@ -18,6 +18,6 @@ resources:
   - ./prowlarr.yaml
   - ./radarr.yaml
   # - ./recyclarr.yaml
-  - ./sabnzbd.yaml
+  # - ./sabnzbd.yaml
   - ./sonarr.yaml
   # - ./youtubedl.yaml
