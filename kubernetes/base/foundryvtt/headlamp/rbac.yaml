@@ -1,0 +1,54 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: headlamp-dracomir
+rules:
+  # Namespace workload visibility
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - pods/log
+      - events
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+      - replicasets
+    verbs:
+      - get
+      - list
+      - watch
+
+  # ONLY allow changing the Dracomir deployment.
+  # "Restart" is implemented by patching the Deployment's
+  # pod template annotation.
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    resourceNames:
+      - dracomir
+    verbs:
+      - patch
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: headlamp-dracomir
+subjects:
+  - kind: ServiceAccount
+    name: headlamp
+    namespace: foundryvtt
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: headlamp-dracomir

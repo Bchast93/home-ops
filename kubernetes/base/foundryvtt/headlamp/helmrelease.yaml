@@ -1,0 +1,52 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app headlamp
+spec:
+  interval: 1h
+
+  chart:
+    spec:
+      chart: headlamp
+      version: 0.44.0
+      sourceRef:
+        kind: HelmRepository
+        name: headlamp
+
+  values:
+    fullnameOverride: *app
+
+    config:
+      inCluster: true
+
+      # Headlamp is protected by Envoy Gateway + Authelia.
+      # Everyone entering this Headlamp instance uses this pod's
+      # restricted ServiceAccount.
+      unsafeUseServiceAccountToken: true
+
+      # Don't allow Helm management from this UI.
+      enableHelm: false
+
+    automountServiceAccountToken: true
+
+    serviceAccount:
+      create: true
+      name: headlamp
+
+    # IMPORTANT:
+    # The Headlamp chart otherwise defaults to creating a
+    # cluster-admin ClusterRoleBinding.
+    clusterRoleBinding:
+      create: false
+
+    service:
+      type: ClusterIP
+      port: 80
+
+    resources:
+      requests:
+        cpu: 25m
+        memory: 128Mi
+      limits:
+        memory: 512Mi
