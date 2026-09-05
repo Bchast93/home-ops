@@ -14,4 +14,4 @@ resources:
   - ./dracomir.yaml
   - ./drakkenheim.yaml
   - ./dnd-tools.yaml
-  - ./headlamp.yaml
+  - ./dracomir-control.yaml

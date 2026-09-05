@@ -1,0 +1,23 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: dracomir-control
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    resourceNames: ["dracomir"]
+    verbs: ["get", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dracomir-control
+subjects:
+  - kind: ServiceAccount
+    name: dracomir-control
+    namespace: foundryvtt
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: dracomir-control

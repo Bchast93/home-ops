@@ -1,0 +1,212 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dracomir-control
+binaryData: {}
+data:
+  app.py: |
+    #!/usr/bin/env python3
+    import html
+    import json
+    import os
+    import secrets
+    import ssl
+    from datetime import datetime, timezone
+    from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+    from urllib.error import HTTPError, URLError
+    from urllib.request import Request, urlopen
+    
+    NAMESPACE = os.getenv("K8S_NAMESPACE", "foundryvtt")
+    DEPLOYMENT = os.getenv("K8S_DEPLOYMENT", "dracomir")
+    PORT = int(os.getenv("PORT", "8080"))
+    API = os.getenv("KUBERNETES_SERVICE_HOST", "kubernetes.default.svc")
+    API_PORT = os.getenv("KUBERNETES_SERVICE_PORT_HTTPS", "443")
+    TOKEN_FILE = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+    CA_FILE = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+    CSRF_TOKEN = secrets.token_urlsafe(32)
+    
+    
+    def kube_request(method="GET", body=None):
+        path = f"/apis/apps/v1/namespaces/{NAMESPACE}/deployments/{DEPLOYMENT}"
+        url = f"https://{API}:{API_PORT}{path}"
+        with open(TOKEN_FILE, "r", encoding="utf-8") as f:
+            token = f.read().strip()
+        headers = {"Authorization": f"Bearer {token}", "Accept": "application/json"}
+        data = None
+        if body is not None:
+            data = json.dumps(body).encode("utf-8")
+            headers["Content-Type"] = "application/merge-patch+json"
+        req = Request(url, data=data, headers=headers, method=method)
+        context = ssl.create_default_context(cafile=CA_FILE)
+        with urlopen(req, context=context, timeout=5) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    
+    
+    def deployment_status():
+        dep = kube_request()
+        spec = dep.get("spec", {})
+        status = dep.get("status", {})
+        desired = spec.get("replicas", 0)
+        ready = status.get("readyReplicas", 0)
+        available = status.get("availableReplicas", 0)
+        updated = status.get("updatedReplicas", 0)
+        generation = dep.get("metadata", {}).get("generation", "?")
+        restart_at = (
+            spec.get("template", {})
+            .get("metadata", {})
+            .get("annotations", {})
+            .get("kubectl.kubernetes.io/restartedAt")
+        )
+        healthy = desired > 0 and ready == desired and available == desired and updated == desired
+        return {
+            "desired": desired,
+            "ready": ready,
+            "available": available,
+            "updated": updated,
+            "generation": generation,
+            "restart_at": restart_at,
+            "healthy": healthy,
+        }
+    
+    
+    def page(message=None, error=None):
+        try:
+            st = deployment_status()
+            state_class = "ok" if st["healthy"] else "warn"
+            state_text = "Running" if st["healthy"] else "Not fully ready"
+            detail = f'{st["ready"]}/{st["desired"]} replicas ready'
+            restart_at = st["restart_at"] or "No restart recorded"
+        except Exception as exc:
+            state_class = "bad"
+            state_text = "Unable to read deployment"
+            detail = html.escape(str(exc))
+            restart_at = "Unknown"
+    
+        notice = ""
+        if message:
+            notice = f'<div class="notice success">{html.escape(message)}</div>'
+        elif error:
+            notice = f'<div class="notice error">{html.escape(error)}</div>'
+    
+        return f"""<!doctype html>
+    <html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dracomir Control</title>
+    <style>
+    :root {{ color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
+    * {{ box-sizing: border-box; }}
+    body {{ margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0b1020; color: #eef2ff; }}
+    .card {{ width: min(92vw, 520px); background: #121a2f; border: 1px solid #263252; border-radius: 18px; padding: 30px; box-shadow: 0 24px 80px rgba(0,0,0,.35); }}
+    h1 {{ margin: 0 0 6px; font-size: 29px; }}
+    .sub {{ margin: 0 0 28px; color: #9eabc9; }}
+    .status {{ display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: 12px; background: #0d1427; margin-bottom: 14px; }}
+    .dot {{ width: 12px; height: 12px; border-radius: 50%; flex: none; }}
+    .ok {{ background: #35c46a; box-shadow: 0 0 18px rgba(53,196,106,.45); }}
+    .warn {{ background: #f4b942; box-shadow: 0 0 18px rgba(244,185,66,.4); }}
+    .bad {{ background: #ef5b5b; box-shadow: 0 0 18px rgba(239,91,91,.4); }}
+    .status strong {{ display: block; font-size: 17px; }}
+    .status small {{ color: #9eabc9; }}
+    .meta {{ color: #9eabc9; font-size: 13px; margin: 0 0 24px; }}
+    button {{ width: 100%; border: 0; border-radius: 12px; padding: 15px 18px; font-size: 16px; font-weight: 700; cursor: pointer; background: #6e72ff; color: white; }}
+    button:hover {{ filter: brightness(1.08); }}
+    button:active {{ transform: translateY(1px); }}
+    .notice {{ border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; font-size: 14px; }}
+    .success {{ background: rgba(53,196,106,.13); border: 1px solid rgba(53,196,106,.35); }}
+    .error {{ background: rgba(239,91,91,.13); border: 1px solid rgba(239,91,91,.35); }}
+    .foot {{ text-align: center; margin-top: 18px; color: #657394; font-size: 12px; }}
+    </style>
+    </head>
+    <body>
+    <main class="card">
+      <h1>Dracomir Control</h1>
+      <p class="sub">Foundry VTT server control</p>
+      {notice}
+      <div class="status">
+        <span class="dot {state_class}"></span>
+        <div><strong>{state_text}</strong><small>{detail}</small></div>
+      </div>
+      <p class="meta">Last requested restart: {html.escape(str(restart_at))}</p>
+      <form method="post" action="/restart" onsubmit="return confirm('Restart Dracomir now? Players will briefly disconnect.');">
+        <input type="hidden" name="csrf" value="{CSRF_TOKEN}">
+        <button type="submit">Restart Dracomir</button>
+      </form>
+      <div class="foot">Only the dracomir Deployment can be modified.</div>
+    </main>
+    </body>
+    </html>"""
+    
+    
+    class Handler(BaseHTTPRequestHandler):
+        server_version = "DracomirControl/1.0"
+    
+        def log_message(self, fmt, *args):
+            print(f'{self.address_string()} - {fmt % args}', flush=True)
+    
+        def send_html(self, code, content):
+            body = content.encode("utf-8")
+            self.send_response(code)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("X-Frame-Options", "DENY")
+            self.send_header("Content-Security-Policy", "default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'")
+            self.end_headers()
+            self.wfile.write(body)
+    
+        def do_GET(self):
+            if self.path == "/healthz":
+                self.send_response(200)
+                self.send_header("Content-Type", "text/plain")
+                self.end_headers()
+                self.wfile.write(b"ok\n")
+                return
+            if self.path != "/":
+                self.send_error(404)
+                return
+            self.send_html(200, page())
+    
+        def do_POST(self):
+            if self.path != "/restart":
+                self.send_error(404)
+                return
+            length = int(self.headers.get("Content-Length", "0"))
+            raw = self.rfile.read(length).decode("utf-8", errors="replace")
+            fields = {}
+            for item in raw.split("&"):
+                if "=" in item:
+                    k, v = item.split("=", 1)
+                    fields[k] = v
+            if fields.get("csrf") != CSRF_TOKEN:
+                self.send_html(403, page(error="Invalid request token."))
+                return
+            stamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+            patch = {
+                "spec": {
+                    "template": {
+                        "metadata": {
+                            "annotations": {
+                                "kubectl.kubernetes.io/restartedAt": stamp
+                            }
+                        }
+                    }
+                }
+            }
+            try:
+                kube_request("PATCH", patch)
+                self.send_html(200, page(message="Restart requested successfully."))
+            except HTTPError as exc:
+                detail = exc.read().decode("utf-8", errors="replace")
+                self.send_html(500, page(error=f"Kubernetes rejected the restart: HTTP {exc.code} {detail}"))
+            except URLError as exc:
+                self.send_html(500, page(error=f"Could not reach the Kubernetes API: {exc.reason}"))
+            except Exception as exc:
+                self.send_html(500, page(error=f"Restart failed: {exc}"))
+    
+    
+    if __name__ == "__main__":
+        print(f"Dracomir Control listening on :{PORT}", flush=True)
+        ThreadingHTTPServer(("0.0.0.0", PORT), Handler).serve_forever()
