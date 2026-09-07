@@ -21,12 +21,10 @@ spec:
         apiVersion: v1
         kind: PersistentVolumeClaim
         metadata:
-          name: plex
           annotations:
             kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
       target:
         kind: PersistentVolumeClaim
-        name: plex
   postBuild:
     substitute:
       APP: *app
