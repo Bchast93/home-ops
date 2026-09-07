@@ -21,8 +21,12 @@ spec:
         apiVersion: v1
         kind: PersistentVolumeClaim
         metadata:
-          annotations:
-            kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
+          name: ignored
+        spec:
+          dataSourceRef:
+            apiGroup: volsync.backube
+            kind: ReplicationDestination
+            name: plex-bootstrap
       target:
         kind: PersistentVolumeClaim
   postBuild:
