@@ -17,18 +17,14 @@ spec:
   interval: 30m
   path: ./kubernetes/base/media/plex
   patches:
-    - patch: |
+    - target:
+        kind: PersistentVolumeClaim
+      patch: |
+        $patch: delete
         apiVersion: v1
         kind: PersistentVolumeClaim
         metadata:
           name: ignored
-        spec:
-          dataSourceRef:
-            apiGroup: volsync.backube
-            kind: ReplicationDestination
-            name: plex-bootstrap
-      target:
-        kind: PersistentVolumeClaim
   postBuild:
     substitute:
       APP: *app
