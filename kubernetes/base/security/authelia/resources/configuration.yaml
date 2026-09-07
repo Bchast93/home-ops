@@ -72,6 +72,18 @@ access_control:
     - domain: "*.${SECRET_DOMAIN}"
       policy: two_factor
 
+    - domain: wizarr.domain.com
+      resources:
+        - '^/join(/.*)?$'
+        - '^/j(/.*)?$'
+        - '^/static(/.*)?$'
+        - '^/setup(/.*)?$'
+        - '^/wizard(/.*)?$'
+        - '^/image-proxy(/.*)?$'
+        - '^/cinema-posters(/.*)?$'
+
+      policy: bypass
+
 totp:
   disable: false
   issuer: "Authelia (${SECRET_DOMAIN})"
