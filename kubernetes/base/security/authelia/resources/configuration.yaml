@@ -68,11 +68,8 @@ access_control:
       networks:
         - "cluster"
       policy: bypass
-    # 2FA if not on cluster network
-    - domain: "*.${SECRET_DOMAIN}"
-      policy: two_factor
-
-    - domain: wizarr.domain.com
+    # Wizarr Bypass 2FA
+    - domain: "wizarr.${SECRET_DOMAIN}"
       resources:
         - '^/join(/.*)?$'
         - '^/j(/.*)?$'
@@ -81,8 +78,9 @@ access_control:
         - '^/wizard(/.*)?$'
         - '^/image-proxy(/.*)?$'
         - '^/cinema-posters(/.*)?$'
-
-      policy: bypass
+    # 2FA if not on cluster network
+    - domain: "*.${SECRET_DOMAIN}"
+      policy: two_factor
 
 totp:
   disable: false
