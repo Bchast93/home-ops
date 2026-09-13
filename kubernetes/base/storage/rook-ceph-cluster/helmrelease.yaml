@@ -54,6 +54,11 @@ spec:
               - type: pushover
             group: internal
             name: rook
+      security:
+        cephx:
+          daemon:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
       cephConfig:
         global:
           bdev_async_discard_threads: "1" # quote
