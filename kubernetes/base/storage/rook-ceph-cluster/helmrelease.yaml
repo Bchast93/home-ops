@@ -59,6 +59,11 @@ spec:
           daemon:
             keyRotationPolicy: KeyGeneration
             keyGeneration: 2
+          csi:
+            # aes256k on the CSI path needs a Linux 7.0+ kernel on every node to
+            # mount existing volumes. Talos is still on the 6.18 series as of
+            # v1.14 (6.18.48), so the CSI keys have to stay on aes for now.
+            keyType: aes
       cephConfig:
         global:
           bdev_async_discard_threads: "1" # quote
