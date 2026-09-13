@@ -17,11 +17,16 @@ data:
   LAN_CIDR: "10.100.150.0/23"
   KUBE_DNS_ADDR: "10.43.0.10"
   CLUSTER_API_ADDR: "10.100.150.200"
+
   CLOUDFLARE_GATEWAY_ADDR: "10.100.150.130"
   CLUSTER_GATEWAY_ADDR: "10.100.150.131"
   CLUSTER_DNS_GATEWAY_ADDR: "10.100.150.132"
-  CEPH_DEVICE_PATH_FILTER: /dev/nvme1n1
+
   CLUSTER_BGP_ASN: "65531"
+
+  CEPH_DEVICE_PATH_FILTER: /dev/nvme1n1
+  CEPH_CLUSTER_CIDR: "10.100.150.0/24"
+
 
   # should be a valid JSON array representing spec.nodePathMap[0].paths
   LOCAL_PATH_PROVISIONER_NODE_PATHS: '["/var/mnt/lpp-0"]'
@@ -41,7 +46,7 @@ data:
   VOLSYNC_STORAGECLASS: "ceph-block"
   VOLSYNC_S3_BUCKET: "chastdev-volsync"
 
-  THEME_PARK_THEME: "space-gray"
+  THEME_PARK_THEME: "dracula"
   OPENEBS_HOSTPATH: "/var/mnt/lpp-0"
 
   SVC_VPN_ADDR: "10.100.150.133"
