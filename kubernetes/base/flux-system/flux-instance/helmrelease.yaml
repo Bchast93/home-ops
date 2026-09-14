@@ -133,6 +133,6 @@ spec:
       sync:
         interval: 1h
         kind: GitRepository
-        path: "kubernetes/clusters/${VAULT_PREFIX}/flux"
+        path: "kubernetes/clusters/chastDev/flux"
         ref: "${GIT_REPO_REF}"
         url: "https://${GIT_REPO}.git"
