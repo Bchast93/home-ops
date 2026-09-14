@@ -56,6 +56,10 @@ spec:
             name: rook
       security:
         cephx:
+          # Ceph 20.2.4 added the CVE-2025-30156 CephX audit, which flags every
+          # legacy `aes` key. Rotating the daemon keys (mon/mgr/osd/mds/rgw) to
+          # aes256k clears the two HEALTH_ERR checks. Bump keyGeneration again
+          # to force a future rotation.
           daemon:
             keyRotationPolicy: KeyGeneration
             keyGeneration: 2
