@@ -64,6 +64,9 @@ spec:
             # mount existing volumes. Talos is still on the 6.18 series as of
             # v1.14 (6.18.48), so the CSI keys have to stay on aes for now.
             keyType: aes
+          # Deliberately NOT setting allowedCiphers: [aes256k] — restricting the
+          # cluster to aes256k while the CSI keys are still aes makes the cluster
+          # unavailable.
       cephConfig:
         global:
           bdev_async_discard_threads: "1" # quote
