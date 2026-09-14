@@ -11,7 +11,6 @@ spec:
   components:
     - ../../../components/theme-park
     - ../../../components/pgo-db-init
-    # - ../../../components/volsync
     - ../../../components/kopiur/backup
   dependsOn:
     - name: downloads-pgo-cluster

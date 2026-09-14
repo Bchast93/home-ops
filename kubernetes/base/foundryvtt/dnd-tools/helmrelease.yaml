@@ -18,11 +18,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: kopiur-repository
-      namespace: storage
-    - name: cloudflare-tunnel
-      namespace: network
   values:
     controllers:
       dnd-tools:

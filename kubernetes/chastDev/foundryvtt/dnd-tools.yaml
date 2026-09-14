@@ -10,6 +10,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../components/kopiur/backup
+  dependsOn:
+    - name: external-secrets
+      namespace: external-secrets
   path: ./kubernetes/base/foundryvtt/dnd-tools
   prune: true
   sourceRef:

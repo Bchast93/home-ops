@@ -11,7 +11,6 @@ spec:
   components:
     - ../../../components/envoy-gateway-oidc
     - ../../../components/theme-park
-    # - ../../../components/volsync
     - ../../../components/kopiur/backup
   dependsOn:
     - name: kopiur-repository
