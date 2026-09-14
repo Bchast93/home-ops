@@ -11,7 +11,7 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - ./namespace.yaml
-  # - ./dracomir.yaml
+  - ./dracomir.yaml
   - ./drakkenheim.yaml
-  # - ./dnd-tools.yaml
+  - ./dnd-tools.yaml
   - ./dracomir-control.yaml
