@@ -74,3 +74,18 @@ spec:
     tier: control-plane
   ports:
     - port: 6443
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: loadbalancer-l2
+spec:
+  serviceSelector:
+    matchExpressions:
+      - key: io.kubernetes.service.annotation/cilium-l2
+        operator: In
+        values:
+          - "true"
+  interfaces:
+    - "^eth1$"
+  loadBalancerIPs: true

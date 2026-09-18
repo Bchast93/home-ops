@@ -93,6 +93,7 @@ spec:
       service:
         metadata:
           annotations:
+            cilium-l2: "true"
             gatus.home-operations.com/endpoint: |
               group: infrastructure
               alerts:

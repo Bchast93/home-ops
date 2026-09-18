@@ -22,6 +22,8 @@ spec:
               memory: 1Gi
       envoyService:
         externalTrafficPolicy: Cluster
+        annotations:
+          cilium-l2: "true"
   shutdown:
     drainTimeout: 180s
   telemetry:
