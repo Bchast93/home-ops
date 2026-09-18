@@ -22,7 +22,7 @@ spec:
               memory: 1Gi
       envoyService:
         externalTrafficPolicy: Cluster
-        annotations:
+        labels:
           cilium-l2: "true"
   shutdown:
     drainTimeout: 180s

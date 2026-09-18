@@ -92,8 +92,9 @@ spec:
       port: 5432
       service:
         metadata:
-          annotations:
+          labels:
             cilium-l2: "true"
+          annotations:
             gatus.home-operations.com/endpoint: |
               group: infrastructure
               alerts:

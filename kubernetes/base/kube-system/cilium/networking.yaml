@@ -81,11 +81,8 @@ metadata:
   name: loadbalancer-l2
 spec:
   serviceSelector:
-    matchExpressions:
-      - key: io.kubernetes.service.annotation/cilium-l2
-        operator: In
-        values:
-          - "true"
+    matchLabels:
+      cilium-l2: "true"
   interfaces:
     - "^eth1$"
   loadBalancerIPs: true
