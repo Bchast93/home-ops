@@ -31,7 +31,7 @@ spec:
       - --gateway-name=envoy-external
       - --zone-id-filter=$(CF_ZONE_ID)
     fullnameOverride: cloudflare-dns
-    logLevel: info
+    logLevel: debug
     podAnnotations:
       secret.reloader.stakater.com/reload: cloudflare-dns
     policy: sync
