@@ -16,7 +16,7 @@ spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: *hostname
+      external-dns.kubernetes.io/hostname: *hostname
       lbipam.cilium.io/ips: ${CLOUDFLARE_GATEWAY_ADDR}
   listeners:
     - name: http
@@ -54,7 +54,7 @@ spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: *hostname
+      external-dns.kubernetes.io/hostname: *hostname
       lbipam.cilium.io/ips: ${CLUSTER_GATEWAY_ADDR}
   listeners:
     - name: http
