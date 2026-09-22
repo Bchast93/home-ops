@@ -61,10 +61,10 @@ spec:
               requests:
                 cpu: 200m
                 memory: 128Mi
-                gpu.intel.com/i915: "1"
+                # gpu.intel.com/i915: "1"
               limits:
                 memory: 6Gi
-                gpu.intel.com/i915: "1"
+                # gpu.intel.com/i915: "1"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
