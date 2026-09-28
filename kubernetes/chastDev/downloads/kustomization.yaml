@@ -15,6 +15,7 @@ resources:
   - ./downloads-pgo-cluster.yaml
   - ./flaresolverr.yaml
   - ./flood.yaml
+  - ./profilarr.yaml
   - ./prowlarr.yaml
   - ./radarr.yaml
   # - ./recyclarr.yaml
