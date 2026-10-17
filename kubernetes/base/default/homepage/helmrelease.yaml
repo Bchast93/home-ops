@@ -20,7 +20,7 @@ spec:
           app:
             image: &image
               repository: ghcr.io/gethomepage/homepage
-              tag: v2.3.0@sha256:f820276654539cdc2cf0169f28188d135919a7984fad76d83d8d5ff1383f3705
+              tag: v2.6.0@sha256:3e38fe788223cb46a3ce1f046ef11667b40f7707fdca0dcbfa3f86c5c42bf1e8
             env:
               TZ: "${TIMEZONE}"
               HOMEPAGE_ALLOWED_HOSTS: "*"
